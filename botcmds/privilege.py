@@ -1,16 +1,15 @@
 from discord.ext import commands
 import json
 
+# you'll have to import this function like "from botcmds.priviliges import adminCheck" since having it in a file called "adminCheck" makes python think I'm trying to call the file as a function
+def adminCheck(userid):
+    return (str(userid) in adminList.keys())
+
 @commands.group()
 async def privilege(ctx):
     if ctx.invoked_subcommand is None:
-        with open("adminList.json", "r") as o:
-            adminList = json.loads(o.read())
-    
-        if str(ctx.author.id) in (adminList.keys()):
-            await ctx.send('You are a privileged user')
-        else:
-            return
+        if adminCheck(ctx.author.id):
+            await ctx.send("You are a privileged user")
 
 @privilege.command()
 async def add(ctx, id):
@@ -19,12 +18,8 @@ async def add(ctx, id):
         await ctx.send('Please specify the id of the user you want to make privileged')
         return
 
-    #this could be turned into a function
-    with open("adminList.json", "r") as o:
-        adminList = json.loads(o.read())
-
-    if str(ctx.author.id) in (adminList.keys()):
-        if str(id) in (adminList.keys()):
+    if adminCheck(ctx.author.id):
+        if adminCheck(id):
             await ctx.send('This user is already privileged')
         else:
             adminList[id] = 1
@@ -39,3 +34,6 @@ async def add(ctx, id):
 
 async def setup(bot):
     bot.add_command(privilege)
+    global adminList
+    with open("adminList.json", "r") as o:
+        adminList = json.loads(o.read())
