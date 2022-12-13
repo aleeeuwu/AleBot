@@ -5,13 +5,12 @@
 import discord
 import asyncio
 from discord.ext import commands
-import asyncio
 
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='ale!', intents=intents)
 
-cmdNames = ["classicCommands", "cat", "neofetch", "wget", "dir", "comicCommandsTHXkittrz", "frisk", "mokou", "servers", "gilbold", "gilbert", "scoreboard", "gilblist"];
+cmdNames = ["classicCommands", "cat", "privilege", "neofetch", "wget", "dir", "comicCommandsTHXkittrz", "frisk", "mokou", "servers", "gilbold", "gilbert", "scoreboard", "gilblist"];
 # commands that dont need api keys or text files so it doesn't just crash when testing
 #cmdNames = ["classicCommands", "neofetch", "wget", "dir", "comicCommandsTHXkittrz", "servers"];
 async def setup():
@@ -49,6 +48,7 @@ async def on_ready():
 #funny status
     await bot.change_presence(status=discord.Status.online, activity=game)
 
+#This is the stuff for the 'phone' command but it stopped working, probably needs a redesign
 #@bot.event
 #async def on_message(message):
 #    if message.author == bot.user:
