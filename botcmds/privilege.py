@@ -1,8 +1,9 @@
 from discord.ext import commands
 import json
 
-@commands.command()
+@commands.group()
 async def privilege(ctx):
+    if ctx.invoked_subcommand is None:
         with open("adminList.json", "r") as o:
             adminList = json.loads(o.read())
     
@@ -11,8 +12,14 @@ async def privilege(ctx):
         else:
             return
 
-@commands.command()
-async def privilegeadd(ctx, id):
+@privilege.command()
+async def add(ctx, id):
+    #this doesn't work
+    if id == None:
+        await ctx.send('Please specify the id of the user you want to make privileged')
+        return
+
+    #this could be turned into a function
     with open("adminList.json", "r") as o:
         adminList = json.loads(o.read())
 
@@ -32,4 +39,3 @@ async def privilegeadd(ctx, id):
 
 async def setup(bot):
     bot.add_command(privilege)
-    bot.add_command(privilegeadd)
