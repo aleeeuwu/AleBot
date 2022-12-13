@@ -7,7 +7,7 @@ async def servers(ctx):
         cunk = cunk + guild.name + '\n'
     await ctx.send(cunk)
 
-def setup(bot):
-    bot.add_command(servers)
+async def setup(bot):
+    await bot.add_command(servers)
     global foobot
     foobot = bot

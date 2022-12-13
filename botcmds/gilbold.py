@@ -7,5 +7,5 @@ async def gilbold(ctx):
     gilbertLine = random.choice(lines)
     await ctx.send(gilbertLine)
 
-def setup(bot):
-    bot.add_command(gilbold)
+async def setup(bot):
+    await bot.add_command(gilbold)

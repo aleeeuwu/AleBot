@@ -102,21 +102,21 @@ async def DM(ctx, user: discord.User, *, message):
 async def avatar(ctx, user: discord.User):
     await ctx.send(user.avatar_url)
 
-def setup(bot):
-    bot.add_command(hello)
-    bot.add_command(fuck)
-    bot.add_command(reddit)
-    bot.add_command(textme)
-    bot.add_command(echo)
-    bot.add_command(send)
-    bot.add_command(ping)
-    bot.add_command(luigiping)
-    bot.add_command(rng)
-    bot.add_command(hug)
-    bot.add_command(delete)
-    bot.add_command(coinflip)
-    bot.add_command(math)
-    bot.add_command(DM)
-    bot.add_command(avatar)
+async def setup(bot):
+    await bot.add_command(hello)
+    await bot.add_command(fuck)
+    await bot.add_command(reddit)
+    await bot.add_command(textme)
+    await bot.add_command(echo)
+    await bot.add_command(send)
+    await bot.add_command(ping)
+    await bot.add_command(luigiping)
+    await bot.add_command(rng)
+    await bot.add_command(hug)
+    await bot.add_command(delete)
+    await bot.add_command(coinflip)
+    await bot.add_command(math)
+    await bot.add_command(DM)
+    await bot.add_command(avatar)
     global foobot
     foobot = bot

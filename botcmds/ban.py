@@ -4,5 +4,5 @@ from discord.ext import commands
 async def ban(ctx):
     await ctx.send('`you` will be banned in 5 minutes.')
 
-def setup(bot):
-    bot.add_command(ban)
+async def setup(bot):
+    await bot.add_command(ban)

@@ -16,5 +16,5 @@ async def cat(ctx):
     else:
         await ctx.send(cat[0].url)
 
-def setup(bot):
-    bot.add_command(cat)
+async def setup(bot):
+    await bot.add_command(cat)

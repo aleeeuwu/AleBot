@@ -4,15 +4,23 @@
 
 import discord
 from discord.ext import commands
+import asyncio
 
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='ale!', intents=intents)
 
-cmdNames = ["classicCommands", "cat", "neofetch", "wget", "dir", "comicCommandsTHXkittrz", "frisk", "mokou", "servers", "gilbold", "gilbert", "scoreboard", "gilblist"];
-
-for name in cmdNames:
-    bot.load_extension('botcmds.' + name)
+async def main():
+    async with bot:
+        cmdNames = ["classicCommands", "cat", "neofetch", "wget", "dir", "comicCommandsTHXkittrz", "frisk", "mokou", "servers", "gilbold", "gilbert", "scoreboard", "gilblist"];
+        
+        for name in cmdNames:
+            await bot.load_extension('botcmds.' + name)
+        
+        with open('token.txt', 'r') as f:
+            token = f.readline()
+        
+        await bot.start(token)
 
 @bot.command()
 async def reload(ctx):
@@ -57,7 +65,4 @@ async def on_ready():
 #            await channel.send(message.author.name + ': ' + message.content)
 #    await bot.process_commands(message)
 
-with open('token.txt', 'r') as f:
-    token = f.readline()
-
-bot.run(token)
+asyncio.run(main())

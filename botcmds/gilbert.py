@@ -74,5 +74,5 @@ async def gilbert(ctx, *, guessGilbert=None):
         with open("tries.json", "w") as o:
             o.write(json_object)
 
-def setup(bot):
-    bot.add_command(gilbert)
+async def setup(bot):
+    await bot.add_command(gilbert)

@@ -7,5 +7,5 @@ async def wget(ctx, file, filename):
        subprocess.Popen(['powershell', 'wget', file, '-OutFile', filename])
 #       await ctx.send(file=discord.File(filename))
 
-def setup(bot):
-    bot.add_command(wget)
+async def setup(bot):
+    await bot.add_command(wget)

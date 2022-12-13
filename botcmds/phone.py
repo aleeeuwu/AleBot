@@ -31,5 +31,5 @@ async def stop(ctx):
         second_phone_channel = 0
         await ctx.send('Phone stopped')
 
-def setup(bot):
-    bot.add_command(phone)
+async def setup(bot):
+    await bot.add_command(phone)
