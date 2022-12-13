@@ -62,7 +62,6 @@ async def on_ready():
 #            await channel.send(message.author.name + ': ' + message.content)
 #    await bot.process_commands(message)
 
-<<<<<<< HEAD
 with open('token.txt', 'r') as f:
     token = f.readline()
 
@@ -74,6 +73,3 @@ async def main():
 asyncio.run(main())
 
 #bot.run(token)
-=======
-asyncio.run(main())
->>>>>>> 01ae04085bb8e009389fe706b3d22b6b65406838
