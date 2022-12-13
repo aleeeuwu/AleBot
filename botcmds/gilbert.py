@@ -4,8 +4,11 @@ import random
 
 @commands.command(description='gilbert')
 async def gilbert(ctx, *, guessGilbert=None):
-    with open("Gilberts.json", "r") as o:
-        listGilbert = json.loads(o.read())
+    # really dumb, need to do this because I can't get the user's name before the bot logs on
+    if not namesList:
+        for userid in triesList:
+            currentUser = await foobot.fetch_user(userid)
+            namesList[userid] = currentUser.name
 
     #picks random bert
     randomGilbert = random.choice(list(listGilbert.keys()))
@@ -28,47 +31,47 @@ async def gilbert(ctx, *, guessGilbert=None):
         await ctx.send('Congratulations, ' + ctx.author.mention + '!' + ' You are the Godbert, you got 1 Gilpoint!')
 
         #to open a file to read
-        with open("scores.json", "r") as o:
-            scores = json.loads(o.read())
+        #with open("scores.json", "r") as o:
+        #    scores = json.loads(o.read())
 
         #if user exists they get one point...
-        if str(idofuser) in (scores.keys()):
-            scores[str(idofuser)] += 1
+        if str(idofuser) in (scoresList.keys()):
+            scoresList[str(idofuser)] += 1
 
         #and if they don't, they get added
         else:
-            scores[str(idofuser)] = 1
+            scoresList[str(idofuser)] = 1
         
         #finally it writes the score to the file
-        json_object = json.dumps(scores, indent=4)
+        json_object = json.dumps(scoresList, indent=4)
         with open("scores.json", "w") as o:
             o.write(json_object)
 
         #now for the tries:
-        with open("tries.json", "r") as o:
-            tries = json.loads(o.read())
+        #with open("tries.json", "r") as o:
+        #    tries = json.loads(o.read())
 
-        if str(idofuser) in (tries.keys()):
-            tries[str(idofuser)] += 1
+        if str(idofuser) in (triesList.keys()):
+            triesList[str(idofuser)] += 1
 
         else:
-            tries[idofuser] = 1
+            triesList[idofuser] = 1
         
-        json_object = json.dumps(tries, indent=4)
+        json_object = json.dumps(triesList, indent=4)
         with open("tries.json", "w") as o:
             o.write(json_object)
 
     #in case of catastrophic failure:
     else:
         await ctx.send('Tough luck!')
-        with open("tries.json", "r") as o:
-            tries = json.loads(o.read())
+        #with open("tries.json", "r") as o:
+        #    tries = json.loads(o.read())
 
-        if str(idofuser) in (tries.keys()):
-            tries[str(idofuser)] += 1
+        if str(idofuser) in (triesList.keys()):
+            triesList[str(idofuser)] += 1
 
         else:
-            tries[str(idofuser)] = 1
+            triesList[str(idofuser)] = 1
         
         json_object = json.dumps(tries, indent=4)
         with open("tries.json", "w") as o:
@@ -76,3 +79,17 @@ async def gilbert(ctx, *, guessGilbert=None):
 
 async def setup(bot):
     bot.add_command(gilbert)
+    global listGilbert
+    with open("Gilberts.json", "r") as o:
+        listGilbert = json.loads(o.read())
+    # different name so that importing it in scoreboard.py doesn't make it import the function
+    global triesList
+    with open("tries.json", "r") as o:
+        triesList = json.loads(o.read())
+    global scoresList
+    with open("scores.json", "r") as o:
+        scoresList = json.loads(o.read())
+
+
+    global namesList
+    namesList = {}

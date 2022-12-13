@@ -1,6 +1,9 @@
 from discord.ext import commands
 import json
 
+# kinda dumb, imports the global variable
+from botcmds.gilbert import scoresList, triesList, namesList
+
 @commands.group(description='gilbert scoreboard')
 async def scoreboard(ctx):
     if ctx.invoked_subcommand is None:
@@ -8,27 +11,34 @@ async def scoreboard(ctx):
 
 @scoreboard.command()
 async def guesses(ctx):
-    with open("scores.json", "r") as o:
-        scores = json.loads(o.read())
+    # really dumb, need to do this because I can't get the user's name before the bot logs on
+    #with open("scores.json", "r") as o:
+    #    scores = json.loads(o.read())
+    if not namesList:
+        for userid in triesList:
+            currentUser = await foobot.fetch_user(userid)
+            namesList[userid] = currentUser.name
     
     boardStr = ''
     
-    for i in sorted(scores.items(), key=lambda x:x[1], reverse=True):
-        currentUser = await foobot.fetch_user(i[0])
-        boardStr += (currentUser.name + " - " + str(i[1]) + '\n')
+    for i in sorted(scoresList.items(), key=lambda x:x[1], reverse=True):
+        boardStr += (namesList[i[0]] + " - " + str(i[1]) + '\n')
     
     await ctx.send(boardStr)
 
 @scoreboard.command()
 async def tries(ctx):
-    with open("tries.json", "r") as o:
-        tries = json.loads(o.read())
+    #with open("tries.json", "r") as o:
+    #    tries = json.loads(o.read())
+    if not namesList:
+        for userid in triesList:
+            currentUser = await foobot.fetch_user(userid)
+            namesList[userid] = currentUser.name
     
     boardStr = ''
     
-    for i in sorted(tries.items(), key=lambda x:x[1], reverse=True):
-        currentUser = await foobot.fetch_user(i[0])
-        boardStr += (currentUser.name + " - " + str(i[1]) + '\n')
+    for i in sorted(triesList.items(), key=lambda x:x[1], reverse=True):
+        boardStr += (namesList[i[0]] + " - " + str(i[1]) + '\n')
     
     await ctx.send(boardStr)
 
