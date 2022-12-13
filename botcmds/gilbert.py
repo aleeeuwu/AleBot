@@ -26,6 +26,10 @@ async def gilbert(ctx, *, guessGilbert=None):
     if guessGilbert is None:
         return
 
+    if idofuser not in namesList:
+        currentUser = await foobot.fetch_user(idofuser)
+        namesList[idofuser] = currentUser.name
+
     #sends a message if it was correct or not
     if guessGilbert.lower() in valueGilbert:
         await ctx.send('Congratulations, ' + ctx.author.mention + '!' + ' You are the Godbert, you got 1 Gilpoint!')
@@ -79,6 +83,8 @@ async def gilbert(ctx, *, guessGilbert=None):
 
 async def setup(bot):
     bot.add_command(gilbert)
+    global foobot
+    foobot = bot
     global listGilbert
     with open("Gilberts.json", "r") as o:
         listGilbert = json.loads(o.read())
