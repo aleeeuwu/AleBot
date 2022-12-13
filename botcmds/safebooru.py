@@ -11,5 +11,5 @@ async def safebooru(ctx, arg):
         for post in post:
             await ctx.send("Image path: {0}".format(post['file_url']))
 
-def setup(bot):
+async def setup(bot):
     bot.add_command(safebooru)

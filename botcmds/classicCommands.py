@@ -102,7 +102,7 @@ async def DM(ctx, user: discord.User, *, message):
 async def avatar(ctx, user: discord.User):
     await ctx.send(user.avatar_url)
 
-def setup(bot):
+async def setup(bot):
     bot.add_command(hello)
     bot.add_command(fuck)
     bot.add_command(reddit)

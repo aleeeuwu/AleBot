@@ -7,5 +7,5 @@ async def frisk(ctx):
     myline = random.choice(lines)
     await ctx.send(myline)
 
-def setup(bot):
+async def setup(bot):
     bot.add_command(frisk)

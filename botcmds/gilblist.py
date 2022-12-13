@@ -17,5 +17,5 @@ async def gilblist(ctx):
         
     await ctx.send(list)
 
-def setup(bot):
+async def setup(bot):
     bot.add_command(gilblist)

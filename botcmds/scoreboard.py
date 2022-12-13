@@ -32,7 +32,7 @@ async def tries(ctx):
     
     await ctx.send(boardStr)
 
-def setup(bot):
+async def setup(bot):
     bot.add_command(scoreboard)
     global foobot
     foobot = bot

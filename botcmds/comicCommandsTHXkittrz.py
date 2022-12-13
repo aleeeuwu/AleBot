@@ -61,7 +61,7 @@ async def jon(ctx):
         outputLink = link2
     await ctx.send(outputLink)
 
-def setup(bot):
+async def setup(bot):
     bot.add_command(garfield)
     bot.add_command(heathcliff)
     bot.add_command(jon)

@@ -9,5 +9,5 @@ async def dir(ctx):
         retcode = command.wait()
         await ctx.send(text.decode())
 
-def setup(bot):
+async def setup(bot):
     bot.add_command(dir)

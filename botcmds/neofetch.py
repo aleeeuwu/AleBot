@@ -8,5 +8,5 @@ async def neofetch(ctx):
     retcode = p.wait()
     await ctx.send(text.decode())
 
-def setup(bot):
+async def setup(bot):
     bot.add_command(neofetch)

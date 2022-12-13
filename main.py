@@ -3,6 +3,7 @@
 #second_phone_channel = 0
 
 import discord
+import asyncio
 from discord.ext import commands
 
 intents = discord.Intents.default()
@@ -10,9 +11,12 @@ intents.message_content = True
 bot = commands.Bot(command_prefix='ale!', intents=intents)
 
 cmdNames = ["classicCommands", "cat", "neofetch", "wget", "dir", "comicCommandsTHXkittrz", "frisk", "mokou", "servers", "gilbold", "gilbert", "scoreboard", "gilblist"];
-
-for name in cmdNames:
-    bot.load_extension('botcmds.' + name)
+# commands that dont need api keys or text files so it doesn't just crash when testing
+#cmdNames = ["classicCommands", "neofetch", "wget", "dir", "comicCommandsTHXkittrz", "servers"];
+async def setup():
+    for name in cmdNames:
+        print(name)
+        await bot.load_extension('botcmds.' + name)
 
 @bot.command()
 async def reload(ctx):
@@ -60,4 +64,11 @@ async def on_ready():
 with open('token.txt', 'r') as f:
     token = f.readline()
 
-bot.run(token)
+async def main():
+    async with bot:
+        await setup()
+        await bot.start(token)
+
+asyncio.run(main())
+
+#bot.run(token)
