@@ -12,8 +12,8 @@ As mentioned above the current code is a mess so there are some things to do for
 
 First, Python requirements:
 
-1. whatever python version discord.py 2.1 requires
-2. discord.py 2.1
+1. Python 3.8 or higher
+2. discord.py 2.1.0
 3. `asyncio`, `catapi.py`, `requests`, `Pybooru` (the command using this is disabled by default and will probably get deleted soon)
 
 Next, files the bot expects to exist (next to main.py):
@@ -35,5 +35,6 @@ Next, files the bot expects to exist (next to main.py):
 }
 ```
 6. `scores.json` & `tries.json` - JSON files read from and written to by the "ale!gilbert" command and the "ale!scoreboard" subcommands.
+9. `adminList.json` - JSON file containing the IDs of the users that can use privileged commands.
 7. `REDDIT.png` - Just an image file uploaded to Discord when calling "ale!REDDIT".
 8. `mokou/` - A folder with 700 images named `1.jpg` to `700.jpg`. The intended images for this folder can be found [here](https://twitter.com/jokanhiyou/status/1556186890428039168).
