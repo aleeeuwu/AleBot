@@ -80,7 +80,7 @@ async def gilbert(ctx, *, guessGilbert=None):
         else:
             triesList[str(idofuser)] = 1
         
-        json_object = json.dumps(tries, indent=4)
+        json_object = json.dumps(triesList, indent=4)
         with open("tries.json", "w") as o:
             o.write(json_object)
 
