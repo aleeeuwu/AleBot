@@ -14,10 +14,10 @@ async def guesses(ctx):
     # really dumb, need to do this because I can't get the user's name before the bot logs on
     #with open("scores.json", "r") as o:
     #    scores = json.loads(o.read())
-    if not namesList:
-        for userid in triesList:
-            currentUser = await foobot.fetch_user(userid)
-            namesList[userid] = currentUser.name
+    #if not namesList:
+    #    for userid in triesList:
+    #        currentUser = await foobot.fetch_user(userid)
+    #        namesList[userid] = currentUser.name
     
     boardStr = ''
     
@@ -30,10 +30,10 @@ async def guesses(ctx):
 async def tries(ctx):
     #with open("tries.json", "r") as o:
     #    tries = json.loads(o.read())
-    if not namesList:
-        for userid in triesList:
-            currentUser = await foobot.fetch_user(userid)
-            namesList[userid] = currentUser.name
+    #if not namesList:
+    #    for userid in triesList:
+    #        currentUser = await foobot.fetch_user(userid)
+    #        namesList[userid] = currentUser.name
     
     boardStr = ''
     

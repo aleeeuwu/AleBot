@@ -5,10 +5,10 @@ import random
 @commands.command(description='gilbert')
 async def gilbert(ctx, *, guessGilbert=None):
     # really dumb, need to do this because I can't get the user's name before the bot logs on
-    if not namesList:
-        for userid in triesList:
-            currentUser = await foobot.fetch_user(userid)
-            namesList[userid] = currentUser.name
+    #if not namesList:
+    #    for userid in triesList:
+    #        currentUser = await foobot.fetch_user(userid)
+    #        namesList[userid] = currentUser.name
 
     #picks random bert
     randomGilbert = random.choice(list(listGilbert.keys()))

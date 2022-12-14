@@ -43,6 +43,13 @@ async def on_command_error(ctx, error):
 
 @bot.event
 async def on_ready():
+    # python jank and will slow down the bot startup, should eventually be asynchronous
+    from botcmds.gilbert import namesList, triesList
+    if not namesList:
+        for userid in triesList:
+            currentUser = await bot.fetch_user(userid)
+            namesList[userid] = currentUser.name
+    
     print('We have logged in as {0.user}'.format(bot))
 #funny game
     game = discord.Game("gaming edition")
