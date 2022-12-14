@@ -1,6 +1,7 @@
 from discord.ext import commands
 import json
 import random
+import asyncio
 
 @commands.command(description='gilbert')
 async def gilbert(ctx, *, guessGilbert=None):
@@ -84,6 +85,18 @@ async def gilbert(ctx, *, guessGilbert=None):
         with open("tries.json", "w") as o:
             o.write(json_object)
 
+async def getNames():
+    print("getting scoreboard names")
+    # have to import THIS FILE because of weird python and asyncio shenanigans lmao
+    import botcmds.gilbert as g
+    if not namesList:
+        for userid in triesList:
+            currentUser = await foobot.fetch_user(userid)
+            namesList[userid] = currentUser.name
+    g.namesLoaded = True
+    print("names stored")
+
+
 async def setup(bot):
     bot.add_command(gilbert)
     global foobot
@@ -104,3 +117,4 @@ async def setup(bot):
     namesList = {}
     global namesLoaded 
     namesLoaded = False
+    asyncio.ensure_future(getNames())

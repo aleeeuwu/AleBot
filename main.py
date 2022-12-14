@@ -41,21 +41,9 @@ async def on_command_error(ctx, error):
         await ctx.send("Something went wrong. Check your console for details.")
     print(error)
 
-async def getNames():
-    print("getting scoreboard names")
-    # weird jank because trying to import namesList made it not actually set the variable
-    import botcmds.gilbert as g
-    if not g.namesList:
-        for userid in g.triesList:
-            currentUser = await bot.fetch_user(userid)
-            g.namesList[userid] = currentUser.name
-    g.namesLoaded = True
-    print("names stored")
 
 @bot.event
 async def on_ready():
-    asyncio.ensure_future(getNames())
-    
     print('We have logged in as {0.user}'.format(bot))
 #funny game
     game = discord.Game("gaming edition")
