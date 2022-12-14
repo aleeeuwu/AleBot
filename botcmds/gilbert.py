@@ -4,6 +4,9 @@ import random
 
 @commands.command(description='gilbert')
 async def gilbert(ctx, *, guessGilbert=None):
+    if not namesLoaded:
+        await ctx.send("Command currently disabled because the names aren't loaded yet")
+        return
     # really dumb, need to do this because I can't get the user's name before the bot logs on
     #if not namesList:
     #    for userid in triesList:
@@ -99,3 +102,5 @@ async def setup(bot):
 
     global namesList
     namesList = {}
+    global namesLoaded 
+    namesLoaded = False

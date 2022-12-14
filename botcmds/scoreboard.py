@@ -1,8 +1,8 @@
 from discord.ext import commands
 import json
 
-# kinda dumb, imports the global variable
-from botcmds.gilbert import scoresList, triesList, namesList
+# have to do this because importing a global variable like "from asdf import g" doesn't work (but for some reason importing an array does)
+import botcmds.gilbert as g
 
 @commands.group(description='gilbert scoreboard')
 async def scoreboard(ctx):
@@ -11,6 +11,9 @@ async def scoreboard(ctx):
 
 @scoreboard.command()
 async def guesses(ctx):
+    if not g.namesLoaded:
+        await ctx.send("Command currently disabled because the names aren't loaded yet")
+        return
     # really dumb, need to do this because I can't get the user's name before the bot logs on
     #with open("scores.json", "r") as o:
     #    scores = json.loads(o.read())
@@ -21,13 +24,16 @@ async def guesses(ctx):
     
     boardStr = ''
     
-    for i in sorted(scoresList.items(), key=lambda x:x[1], reverse=True):
-        boardStr += (namesList[i[0]] + " - " + str(i[1]) + '\n')
+    for i in sorted(g.scoresList.items(), key=lambda x:x[1], reverse=True):
+        boardStr += (g.namesList[i[0]] + " - " + str(i[1]) + '\n')
     
     await ctx.send(boardStr)
 
 @scoreboard.command()
 async def tries(ctx):
+    if not g.namesLoaded:
+        await ctx.send("Command currently disabled because the names aren't loaded yet")
+        return
     #with open("tries.json", "r") as o:
     #    tries = json.loads(o.read())
     #if not namesList:
@@ -37,8 +43,8 @@ async def tries(ctx):
     
     boardStr = ''
     
-    for i in sorted(triesList.items(), key=lambda x:x[1], reverse=True):
-        boardStr += (namesList[i[0]] + " - " + str(i[1]) + '\n')
+    for i in sorted(g.triesList.items(), key=lambda x:x[1], reverse=True):
+        boardStr += (g.namesList[i[0]] + " - " + str(i[1]) + '\n')
     
     await ctx.send(boardStr)
 
