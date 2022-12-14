@@ -1,11 +1,15 @@
 from discord.ext import commands
+from botcmds.privilege import adminCheck
 
 @commands.command()
 async def servers(ctx):
-    cunk = ''
-    for guild in foobot.guilds:
-        cunk = cunk + guild.name + '\n'
-    await ctx.send(cunk)
+    if adminCheck(ctx.author.id):
+        cunk = ''
+        for guild in foobot.guilds:
+            cunk = cunk + guild.name + '\n'
+        await ctx.send(cunk)
+    else:
+        await ctx.send('You need privileges to use this command!')
 
 async def setup(bot):
     bot.add_command(servers)

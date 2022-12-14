@@ -1,11 +1,14 @@
 from discord.ext import commands
 import subprocess
+from botcmds.privilege import adminCheck
 
 @commands.command()
 async def wget(ctx, file, filename):
-    if await bot.is_owner(ctx.author):
+    if adminCheck(ctx.author.id):
        subprocess.Popen(['powershell', 'wget', file, '-OutFile', filename])
 #       await ctx.send(file=discord.File(filename))
+    else:
+        await ctx.send('You need privileges to use this command!')
 
 async def setup(bot):
     bot.add_command(wget)

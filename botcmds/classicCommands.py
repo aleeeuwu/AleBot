@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import random
+from botcmds.privilege import adminCheck
 
 @commands.command(description='Hello!')
 async def hello(ctx):
@@ -24,10 +25,12 @@ async def echo(ctx, *, arg):
     await ctx.send(arg)
 
 #sends a file you specify
-@commands.command(description='sends a file from the host\'s device. only ale can use this.')
+@commands.command(description='sends a file from the host\'s device.')
 async def send(ctx, arg):
-    if await bot.is_owner(ctx.author):
+    if adminCheck(ctx.author.id):
         await ctx.send(file=discord.File(arg))
+    else:
+        await ctx.send('You need privileges to use this command!')
 
 #shows the bot's latency
 @commands.command(description='shows the bot\'s latency')
@@ -54,8 +57,11 @@ async def hug(ctx,*,arg):
 #deletes a message by its id
 @commands.command(description='deletes a message by its id')
 async def delete(ctx,arg):
-    msg = await ctx.channel.fetch_message(arg)
-    await msg.delete()
+    if adminCheck(ctx.author.id):
+        msg = await ctx.channel.fetch_message(arg)
+        await msg.delete()
+    else:
+        await ctx.send('You need privileges to use this command!')
 
 @commands.command(description='heads or tails')
 async def coinflip(ctx):
@@ -95,8 +101,11 @@ async def divide(ctx, a: int, b: int):
 
 @commands.command()
 async def DM(ctx, user: discord.User, *, message):
-    await user.send(message)
-    print(ctx.author, user, message)
+    if adminCheck(ctx.author.id):
+        await user.send(message)
+        print(ctx.author, user, message)
+    else:
+        await ctx.send('You need privileges to use this command!')
 
 @commands.command()
 async def avatar(ctx, user: discord.User):

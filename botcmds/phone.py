@@ -1,4 +1,5 @@
 from discord.ext import commands
+from botcmds.privilege import adminCheck
 
 @commands.group()
 async def phone(ctx):
@@ -7,7 +8,7 @@ async def phone(ctx):
 
 @phone.command()
 async def start(ctx, phonechannelid2: int):
-    if await bot.is_owner(ctx.author):
+    if adminCheck(ctx.author.id):
         global textphone
         global first_phone_channel
         global second_phone_channel
@@ -19,10 +20,12 @@ async def start(ctx, phonechannelid2: int):
         print(first_phone_channel)
         print(second_phone_channel)
         print(textphone)
+    else:
+        await ctx.send('You need privileges to use this command!')
 
 @phone.command()
 async def stop(ctx):
-    if await bot.is_owner(ctx.author):
+    if adminCheck(ctx.author.id):
         global textphone
         global first_phone_channel
         global second_phone_channel
@@ -30,6 +33,8 @@ async def stop(ctx):
         first_phone_channel = 0
         second_phone_channel = 0
         await ctx.send('Phone stopped')
+    else:
+        await ctx.send('You need privileges to use this command!')
 
 async def setup(bot):
     bot.add_command(phone)

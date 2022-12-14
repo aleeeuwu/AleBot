@@ -10,6 +10,8 @@ async def privilege(ctx):
     if ctx.invoked_subcommand is None:
         if adminCheck(ctx.author.id):
             await ctx.send("You are a privileged user")
+        else:
+            await ctx.send('You are not a privileged user')
 
 @privilege.command()
 async def add(ctx, id):
@@ -30,7 +32,7 @@ async def add(ctx, id):
 
             await ctx.send('This user is now a privileged user')
     else:
-        return
+        await ctx.send('You need privileges to use this command!')
 
 async def setup(bot):
     bot.add_command(privilege)

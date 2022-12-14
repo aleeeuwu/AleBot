@@ -10,7 +10,8 @@ intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='ale!', intents=intents)
 
-cmdNames = ["classicCommands", "cat", "privilege", "neofetch", "wget", "dir", "comicCommandsTHXkittrz", "frisk", "mokou", "servers", "gilbold", "gilbert", "scoreboard", "gilblist"];
+#watch out for the order of this:
+cmdNames = ["privilege", "classicCommands", "cat", "neofetch", "wget", "dir", "comicCommandsTHXkittrz", "frisk", "mokou", "servers", "gilbold", "gilbert", "scoreboard", "gilblist"];
 # commands that dont need api keys or text files so it doesn't just crash when testing
 #cmdNames = ["classicCommands", "neofetch", "wget", "dir", "comicCommandsTHXkittrz", "servers"];
 async def setup():
