@@ -4,7 +4,7 @@ import time
 @commands.command()
 async def ban(ctx):
     theTime = int(time.time()) + 300
-    await ctx.send('`you` will be banned in <t:' + theTime + ':R>.')
+    await ctx.send('`you` will be banned in <t:' + str(theTime) + ':R>.')
 
 async def setup(bot):
     bot.add_command(ban)
