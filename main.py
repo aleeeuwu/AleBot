@@ -18,14 +18,13 @@ async def setup():
     for name in cmdNames:
         print(name)
         await bot.load_extension('botcmds.' + name)
-    await bot.sync(guild=None)
 
 @bot.hybrid_command()
 async def reload(ctx):
     if await bot.is_owner(ctx.author):
         for name in cmdNames:
             await bot.reload_extension('botcmds.' + name)
-        await bot.sync(guild=None)
+        await bot.tree.sync(guild=None)
         await ctx.send('reloaded! (probably)')
 
 @bot.hybrid_command()
@@ -51,6 +50,8 @@ async def on_ready():
     game = discord.Game("gaming edition")
 #funny status
     await bot.change_presence(status=discord.Status.online, activity=game)
+#funny slash commands
+    await bot.tree.sync(guild=None)
 
 #This is the stuff for the 'phone' command but it stopped working, probably needs a redesign
 #@bot.event
