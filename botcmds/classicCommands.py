@@ -11,7 +11,7 @@ async def hello(ctx):
 async def fuck(ctx):
     await ctx.send('fuck TWO')
 
-@commands.hybrid_command(name='REDDIT', description='sends the REDDIT image')
+@commands.hybrid_command(description='sends the REDDIT image')
 async def reddit(ctx):
     await ctx.send(file=discord.File('REDDIT.png'))
 
@@ -100,7 +100,7 @@ async def divide(ctx, a: int, b: int):
     await ctx.send(a / b)
 
 @commands.hybrid_command()
-async def DM(ctx, user: discord.User, *, message):
+async def dm(ctx, user: discord.User, *, message):
     if adminCheck(ctx.author.id):
         await user.send(message)
         print(ctx.author, user, message)
@@ -125,7 +125,7 @@ async def setup(bot):
     bot.add_command(delete)
     bot.add_command(coinflip)
     bot.add_command(math)
-    bot.add_command(DM)
+    bot.add_command(dm)
     bot.add_command(avatar)
     global foobot
     foobot = bot
