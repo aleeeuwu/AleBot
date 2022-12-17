@@ -18,15 +18,17 @@ async def setup():
     for name in cmdNames:
         print(name)
         await bot.load_extension('botcmds.' + name)
+    await bot.sync(guild=None)
 
-@bot.command()
+@bot.hybrid_command()
 async def reload(ctx):
     if await bot.is_owner(ctx.author):
         for name in cmdNames:
             await bot.reload_extension('botcmds.' + name)
+        await bot.sync(guild=None)
         await ctx.send('reloaded! (probably)')
 
-@bot.command()
+@bot.hybrid_command()
 async def owner(ctx):
     if await bot.is_owner(ctx.author):
         await ctx.send('you are the owner')

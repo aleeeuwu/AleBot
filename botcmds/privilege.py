@@ -5,7 +5,7 @@ import json
 def adminCheck(userid):
     return (str(userid) in adminList.keys())
 
-@commands.group()
+@commands.hybrid_group()
 async def privilege(ctx):
     if ctx.invoked_subcommand is None:
         if adminCheck(ctx.author.id):

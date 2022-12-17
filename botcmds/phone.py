@@ -1,7 +1,7 @@
 from discord.ext import commands
 from botcmds.privilege import adminCheck
 
-@commands.group()
+@commands.hybrid_group()
 async def phone(ctx):
     if ctx.invoked_subcommand is None:
         await ctx.send('you have to specify something dummy')

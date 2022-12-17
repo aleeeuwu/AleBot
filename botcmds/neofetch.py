@@ -1,7 +1,7 @@
 from discord.ext import commands
 import subprocess
 
-@commands.command()
+@commands.hybrid_command()
 async def neofetch(ctx):
     p = subprocess.Popen(['bash', 'neofetch', '--stdout'], stdout=subprocess.PIPE)
     text = p.stdout.read()

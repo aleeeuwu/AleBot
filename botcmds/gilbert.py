@@ -3,7 +3,7 @@ import json
 import random
 import asyncio
 
-@commands.command(description='gilbert')
+@commands.hybrid_command(description='gilbert')
 async def gilbert(ctx, *, guessGilbert=None):
     if not namesLoaded:
         await ctx.send("Command currently disabled because the names aren't loaded yet")
