@@ -6,18 +6,23 @@ import discord
 import asyncio
 from discord.ext import commands
 
-intents = discord.Intents.default()
-intents.message_content = True
-bot = commands.Bot(command_prefix='ale!', intents=intents)
-
 #watch out for the order of this:
 cmdNames = ["privilege", "ban", "classicCommands", "cat", "neofetch", "wget", "dir", "comicCommandsTHXkittrz", "frisk", "mokou", "servers", "gilbold", "gilbert", "scoreboard", "gilblist"];
 # commands that dont need api keys or text files so it doesn't just crash when testing
 #cmdNames = ["classicCommands", "neofetch", "wget", "dir", "comicCommandsTHXkittrz", "servers"];
-async def setup():
-    for name in cmdNames:
-        print(name)
-        await bot.load_extension('botcmds.' + name)
+
+class MyClient(commands.Bot):
+    def __init__(self, *, command_prefix, intents: discord.Intents):
+        super().__init__(command_prefix=command_prefix, intents=intents)
+    async def setup_hook(self):
+        for name in cmdNames:
+            print(name)
+            await self.load_extension('botcmds.' + name)
+        await self.tree.sync(guild=None)
+
+intents = discord.Intents.default()
+intents.message_content = True
+bot = MyClient(command_prefix='ale!', intents=intents)
 
 @bot.hybrid_command()
 async def reload(ctx):
@@ -50,8 +55,6 @@ async def on_ready():
     game = discord.Game("gaming edition")
 #funny status
     await bot.change_presence(status=discord.Status.online, activity=game)
-#funny slash commands
-    await bot.tree.sync(guild=None)
 
 #This is the stuff for the 'phone' command but it stopped working, probably needs a redesign
 #@bot.event
@@ -72,7 +75,6 @@ with open('token.txt', 'r') as f:
 
 async def main():
     async with bot:
-        await setup()
         await bot.start(token)
 
 asyncio.run(main())
