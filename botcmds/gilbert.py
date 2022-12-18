@@ -3,8 +3,8 @@ import json
 import random
 import asyncio
 
-@commands.command(description='gilbert')
-async def gilbert(ctx, *, guessGilbert=None):
+@commands.hybrid_command(description='gilbert')
+async def gilbert(ctx, *, guess=None):
     if not namesLoaded:
         await ctx.send("Command currently disabled because the names aren't loaded yet")
         return
@@ -27,7 +27,7 @@ async def gilbert(ctx, *, guessGilbert=None):
     await ctx.send(randomGilbert)
 
     #exception if no guess
-    if guessGilbert is None:
+    if guess is None:
         return
 
     if idofuser not in namesList:
@@ -35,7 +35,7 @@ async def gilbert(ctx, *, guessGilbert=None):
         namesList[idofuser] = currentUser.name
 
     #sends a message if it was correct or not
-    if guessGilbert.lower() in valueGilbert:
+    if guess.lower() in valueGilbert:
         await ctx.send('Congratulations, ' + ctx.author.mention + '!' + ' You are the Godbert, you got 1 Gilpoint!')
 
         #to open a file to read

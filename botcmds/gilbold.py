@@ -1,7 +1,7 @@
 from discord.ext import commands
 import random
 
-@commands.command(description='gilbert classic edition')
+@commands.hybrid_command(description='gilbert classic edition')
 async def gilbold(ctx):
     lines = open('gilbert.txt').read().splitlines()
     gilbertLine = random.choice(lines)

@@ -3,7 +3,7 @@ from pybooru import Danbooru
 
 dansafe = Danbooru('safebooru')
 
-@commands.command(description='Sends a random post from safebooru.')
+@commands.hybrid_command(description='Sends a random post from safebooru.')
 async def safebooru(ctx, arg):
     if ctx.channel.id == 0:
         tags = arg

@@ -1,7 +1,7 @@
 from discord.ext import commands
 from botcmds.privilege import adminCheck
 
-@commands.command()
+@commands.hybrid_command()
 async def servers(ctx):
     if adminCheck(ctx.author.id):
         cunk = ''

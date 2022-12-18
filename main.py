@@ -6,27 +6,33 @@ import discord
 import asyncio
 from discord.ext import commands
 
-intents = discord.Intents.default()
-intents.message_content = True
-bot = commands.Bot(command_prefix='ale!', intents=intents)
-
 #watch out for the order of this:
 cmdNames = ["privilege", "ban", "classicCommands", "cat", "neofetch", "wget", "dir", "comicCommandsTHXkittrz", "frisk", "mokou", "servers", "gilbold", "gilbert", "scoreboard", "gilblist"];
 # commands that dont need api keys or text files so it doesn't just crash when testing
 #cmdNames = ["classicCommands", "neofetch", "wget", "dir", "comicCommandsTHXkittrz", "servers"];
-async def setup():
-    for name in cmdNames:
-        print(name)
-        await bot.load_extension('botcmds.' + name)
 
-@bot.command()
+class MyClient(commands.Bot):
+    def __init__(self, *, command_prefix, intents: discord.Intents):
+        super().__init__(command_prefix=command_prefix, intents=intents)
+    async def setup_hook(self):
+        for name in cmdNames:
+            print(name)
+            await self.load_extension('botcmds.' + name)
+        await self.tree.sync(guild=None)
+
+intents = discord.Intents.default()
+intents.message_content = True
+bot = MyClient(command_prefix='ale!', intents=intents)
+
+@bot.hybrid_command()
 async def reload(ctx):
     if await bot.is_owner(ctx.author):
         for name in cmdNames:
             await bot.reload_extension('botcmds.' + name)
+        await bot.tree.sync(guild=None)
         await ctx.send('reloaded! (probably)')
 
-@bot.command()
+@bot.hybrid_command()
 async def owner(ctx):
     if await bot.is_owner(ctx.author):
         await ctx.send('you are the owner')
@@ -69,7 +75,6 @@ with open('token.txt', 'r') as f:
 
 async def main():
     async with bot:
-        await setup()
         await bot.start(token)
 
 asyncio.run(main())

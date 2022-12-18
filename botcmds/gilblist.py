@@ -1,7 +1,7 @@
 from discord.ext import commands
 import json
 
-@commands.command(description='namelist of gilberts')
+@commands.hybrid_command(description='namelist of gilberts')
 async def gilblist(ctx):
     with open("Gilberts.json", "r") as o:
         listGilbert = json.loads(o.read())

@@ -2,7 +2,7 @@ from discord.ext import commands
 import subprocess
 from botcmds.privilege import adminCheck
 
-@commands.command()
+@commands.hybrid_command()
 async def dir(ctx):
     if adminCheck(ctx.author.id):
         command = subprocess.Popen(['cmd', '/c', 'dir', '/b'], stdout=subprocess.PIPE)

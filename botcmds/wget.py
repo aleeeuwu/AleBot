@@ -2,7 +2,7 @@ from discord.ext import commands
 import subprocess
 from botcmds.privilege import adminCheck
 
-@commands.command()
+@commands.hybrid_command()
 async def wget(ctx, file, filename):
     if adminCheck(ctx.author.id):
        subprocess.Popen(['powershell', 'wget', file, '-OutFile', filename])

@@ -7,7 +7,7 @@ with open('catapi.txt', 'r') as f:
 
 apimeow = catapi.CatApi(api_key=token)
 
-@commands.command(description='sends a random cat, has a 10% chance of sending a dumbass cat instead')
+@commands.hybrid_command(description='sends a random cat, has a 10% chance of sending a dumbass cat instead')
 async def cat(ctx):
     cat = await apimeow.search_images(limit=1)
     chance = random.randint(1, 10)

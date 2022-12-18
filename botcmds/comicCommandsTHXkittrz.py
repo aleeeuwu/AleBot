@@ -2,7 +2,7 @@ from discord.ext import commands
 import random
 import requests as req
 
-@commands.command(description='Sends a random Garfield strip from GoComics. Command functionality made by kittrz.')
+@commands.hybrid_command(description='Sends a random Garfield strip from GoComics. Command functionality made by kittrz.')
 async def garfield(ctx):
     r = req.get("https://www.gocomics.com/random/garfield").text
     urlIndex = r.find("src=\"https://assets.amuniversal");
@@ -12,7 +12,7 @@ async def garfield(ctx):
         str += r[urlIndex+i]
     await ctx.send(str)
 
-@commands.command(description='Sends a random Heathcliff strip from GoComics. Command functionality made by kittrz.')
+@commands.hybrid_command(description='Sends a random Heathcliff strip from GoComics. Command functionality made by kittrz.')
 async def heathcliff(ctx):
     r = req.get("https://www.gocomics.com/random/heathcliff").text
     urlIndex = r.find("src=\"https://assets.amuniversal");
@@ -22,7 +22,7 @@ async def heathcliff(ctx):
         str += r[urlIndex+i]
     await ctx.send(str)
 
-@commands.command(description='Sends a random Garfield Minus Garfield strip. Command functionality made by kittrz.')
+@commands.hybrid_command(description='Sends a random Garfield Minus Garfield strip. Command functionality made by kittrz.')
 async def jon(ctx):
     r = req.get("https://garfieldminusgarfield.net/page/0").text 
     
