@@ -14,6 +14,10 @@ async def fuck(ctx):
 @commands.hybrid_command(description='sends the REDDIT image')
 async def reddit(ctx):
     await ctx.send(file=discord.File('REDDIT.png'))
+    
+@commands.command(description="rock pikmin")
+async def pikmin(ctx):
+    await ctx.send('https://cdn.discordapp.com/attachments/607657189003493376/1053821556624740423/rockPikmin.jpeg')
 
 @commands.hybrid_command(description='you will recieve a nice message')
 async def textme(ctx):
@@ -115,6 +119,7 @@ async def setup(bot):
     bot.add_command(hello)
     bot.add_command(fuck)
     bot.add_command(reddit)
+    bot.add_command(pikmin)
     bot.add_command(textme)
     bot.add_command(echo)
     bot.add_command(send)
