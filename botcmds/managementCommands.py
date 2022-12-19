@@ -6,7 +6,7 @@ from botcmds.privilege import adminCheck
 @commands.hybrid_command()
 async def wget(ctx, file, filename):
     if adminCheck(ctx.author.id):
-        p = subprocess.Popen(['wget', file, '-O', filename])
+        p = subprocess.Popen(['bash', '-c', 'wget ' + file + ' -O ' + filename])
         p.wait()
         await ctx.send(file=discord.File(filename))
     else:
@@ -30,9 +30,9 @@ async def delete(ctx,arg):
 
 @commands.hybrid_command()
 async def neofetch(ctx):
-    p = subprocess.Popen(['bash', 'neofetch', '--stdout'], stdout=subprocess.PIPE)
+    p = subprocess.Popen(['bash', '-c', 'neofetch --stdout'], stdout=subprocess.PIPE)
+    p.wait()
     text = p.stdout.read()
-    retcode = p.wait()
     await ctx.send(text.decode())
 
 @commands.hybrid_command()
@@ -48,10 +48,9 @@ async def servers(ctx):
 @commands.hybrid_command()
 async def dir(ctx):
     if adminCheck(ctx.author.id):
-        #command = subprocess.Popen(['cmd', '/c', 'dir', '/b'], stdout=subprocess.PIPE)
-        command = subprocess.Popen(['ls'], stdout=subprocess.PIPE)
+        command = subprocess.Popen(['bash', '-c', 'ls -1'], stdout=subprocess.PIPE)
+        command.wait()
         text = command.stdout.read()
-        retcode = command.wait()
         await ctx.send(text.decode())
     else:
         await ctx.send('You need privileges to use this command!')
