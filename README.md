@@ -20,9 +20,9 @@ Next, files the bot expects to exist (next to main.py):
 
 1. `token.txt` - Discord bot token. This is the only required file for basic functionality.
 2. `catapi.txt` - API key from [TheCatAPI](https://thecatapi.com/).
-3. `frisk.txt` - List of links separated by newlines that is called when running "ale!frisk".
-4. `gilbert.txt` - List of links separated by newlines that is called when running "ale!gilbold".
-5. `Gilberts.json` - JSON file containing links and name aliases used by "ale!gilbert", formatted roughly as follows:
+3. `frisk.txt` - List of links separated by newlines that is called when calling the "frisk" command.
+4. `gilbert.txt` - List of links separated by newlines that is called when calling the "gilbold" command.
+5. `Gilberts.json` - JSON file containing links and name aliases used by the "gilbert" command, formatted roughly as follows:
 ```
 {
     "https://cdn.discordapp.com/attachments/934379530729164810/934379708601237534/Ale.png": [
@@ -34,7 +34,8 @@ Next, files the bot expects to exist (next to main.py):
     ]
 }
 ```
-6. `scores.json` & `tries.json` - JSON files read from and written to by the "ale!gilbert" command and the "ale!scoreboard" subcommands.
-9. `adminList.json` - JSON file containing the IDs of the users that can use privileged commands.
-7. `REDDIT.png` - Just an image file uploaded to Discord when calling "ale!REDDIT".
+6. `scores.json` & `tries.json` - JSON files read from and written to by the "gilbert" command and the "scoreboard" subcommands.
+7. `REDDIT.png` - Just an image file uploaded to Discord when calling the "reddit" command.
 8. `mokou/` - A folder with 700 images named `1.jpg` to `700.jpg`. The intended images for this folder can be found [here](https://twitter.com/jokanhiyou/status/1556186890428039168).
+
+Some commands run under bash so on Windows you will need Windows Subsystem for Linux for them to work (the bot runs outside of the subsystem and will only call it when needed). With bash you should only need to install `neofetch` using a package manager.
