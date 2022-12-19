@@ -3,6 +3,17 @@
 *.json
 mokou/
 *.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.mp3
+*.ogg
+*.wav
+*.m4a
+*.mp4
+*.mov
+*.webm
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
