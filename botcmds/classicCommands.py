@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import random
 from botcmds.privilege import adminCheck
+import time
 
 @commands.hybrid_command(description='Hello!')
 async def hello(ctx):
@@ -28,14 +29,6 @@ async def textme(ctx):
 async def echo(ctx, *, arg):
     await ctx.send(arg)
 
-#sends a file you specify
-@commands.hybrid_command(description='sends a file from the host\'s device.')
-async def send(ctx, arg):
-    if adminCheck(ctx.author.id):
-        await ctx.send(file=discord.File(arg))
-    else:
-        await ctx.send('You need privileges to use this command!')
-
 #shows the bot's latency
 @commands.hybrid_command(description='shows the bot\'s latency')
 async def ping(ctx):
@@ -58,14 +51,10 @@ async def rng(ctx,arg: int,arg2: int):
 async def hug(ctx,*,arg):
     await ctx.send(f'<@{ctx.author.id}> hugged {arg}!')
 
-#deletes a message by its id
-@commands.hybrid_command(description='deletes a message by its id')
-async def delete(ctx,arg):
-    if adminCheck(ctx.author.id):
-        msg = await ctx.channel.fetch_message(arg)
-        await msg.delete()
-    else:
-        await ctx.send('You need privileges to use this command!')
+@commands.hybrid_command()
+async def ban(ctx):
+    theTime = int(time.time()) + 300
+    await ctx.send('`you` will be banned <t:' + str(theTime) + ':R>.')
 
 @commands.hybrid_command(description='heads or tails')
 async def coinflip(ctx):
@@ -122,12 +111,11 @@ async def setup(bot):
     bot.add_command(pikmin)
     bot.add_command(textme)
     bot.add_command(echo)
-    bot.add_command(send)
     bot.add_command(ping)
     bot.add_command(luigiping)
     bot.add_command(rng)
     bot.add_command(hug)
-    bot.add_command(delete)
+    bot.add_command(ban)
     bot.add_command(coinflip)
     bot.add_command(math)
     bot.add_command(dm)

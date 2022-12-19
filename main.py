@@ -7,7 +7,7 @@ import asyncio
 from discord.ext import commands
 
 #watch out for the order of this:
-cmdNames = ["privilege", "ban", "classicCommands", "cat", "neofetch", "wget", "dir", "comicCommandsTHXkittrz", "frisk", "mokou", "servers", "gilbold", "gilbert", "scoreboard", "gilblist", "uptime"];
+cmdNames = ["privilege", "classicCommands", "managementCommands", "cat", "comicCommandsTHXkittrz", "frisk", "mokou", "gilbold", "gilbert", "scoreboard", "gilblist", "uptime"];
 # commands that dont need api keys or text files so it doesn't just crash when testing
 #cmdNames = ["classicCommands", "neofetch", "wget", "dir", "comicCommandsTHXkittrz", "servers", "uptime"];
 
