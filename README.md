@@ -34,8 +34,7 @@ Next, files the bot expects to exist (next to main.py):
     ]
 }
 ```
-6. `scores.json` & `tries.json` - JSON files read from and written to by the "gilbert" command and the "scoreboard" subcommands.
-7. `REDDIT.png` - Just an image file uploaded to Discord when calling the "reddit" command.
-8. `mokou/` - A folder with 700 images named `1.jpg` to `700.jpg`. The intended images for this folder can be found [here](https://twitter.com/jokanhiyou/status/1556186890428039168).
+6. `REDDIT.png` - Just an image file uploaded to Discord when calling the "reddit" command.
+7. `mokou/` - A folder with 700 images named `1.jpg` to `700.jpg`. The intended images for this folder can be found [here](https://twitter.com/jokanhiyou/status/1556186890428039168).
 
 Some commands run under bash so on Windows you will need Windows Subsystem for Linux for them to work (the bot runs outside of the subsystem and will only call it when needed). With bash you should only need to install `neofetch` using a package manager.
