@@ -40,7 +40,7 @@ async def setup(bot):
     global foobot
     foobot = bot
     global adminList
-    if os.path.exists("asminList.json"):
+    if os.path.exists("adminList.json"):
         with open("adminList.json", "r") as o:
             adminList = json.loads(o.read())
     else:
