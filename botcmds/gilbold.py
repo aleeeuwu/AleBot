@@ -1,5 +1,6 @@
 from discord.ext import commands
 import random
+import os
 
 @commands.hybrid_command(description='gilbert classic edition')
 async def gilbold(ctx):
@@ -8,4 +9,7 @@ async def gilbold(ctx):
     await ctx.send(gilbertLine)
 
 async def setup(bot):
+    if not os.path.exists("gilbert.txt"):
+        print("gilbert.txt file (not the main one) not found, gilbold command disabled")
+        return
     bot.add_command(gilbold)

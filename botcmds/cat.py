@@ -1,11 +1,8 @@
 from discord.ext import commands
 import catapi
 import random
+import os
 
-with open('catapi.txt', 'r') as f:
-    token = f.readline()
-
-apimeow = catapi.CatApi(api_key=token)
 
 @commands.hybrid_command(description='sends a random cat, has a 10% chance of sending a dumbass cat instead')
 async def cat(ctx):
@@ -17,4 +14,12 @@ async def cat(ctx):
         await ctx.send(cat[0].url)
 
 async def setup(bot):
+    if not os.path.exists("catapi.txt"):
+        print("cat api token not found, command disabled")
+        return
+    token = ""
+    with open('catapi.txt', 'r') as f:
+        token = f.readline()
+
+    apimeow = catapi.CatApi(api_key=token)
     bot.add_command(cat)

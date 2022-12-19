@@ -2,12 +2,14 @@ from discord.ext import commands
 import json
 import random
 import asyncio
+import os
 
 @commands.hybrid_command(description='gilbert')
 async def gilbert(ctx, *, guess=None):
     if not namesLoaded:
         await ctx.send("Command currently disabled because the names aren't loaded yet")
         return
+        
     # really dumb, need to do this because I can't get the user's name before the bot logs on
     #if not namesList:
     #    for userid in triesList:
@@ -98,19 +100,35 @@ async def getNames():
 
 
 async def setup(bot):
-    bot.add_command(gilbert)
     global foobot
     foobot = bot
     global listGilbert
-    with open("Gilberts.json", "r") as o:
-        listGilbert = json.loads(o.read())
+    if os.path.exists("Gilberts.json"):
+        with open("Gilberts.json", "r") as o:
+            listGilbert = json.loads(o.read())
+        bot.add_command(gilbert)
+    else:
+        print("gilberts list not found, command disabled")
     # different name so that importing it in scoreboard.py doesn't make it import the function
     global triesList
-    with open("tries.json", "r") as o:
-        triesList = json.loads(o.read())
+    if os.path.exists("tries.json"):
+        with open("tries.json", "r") as o:
+            triesList = json.loads(o.read())
+    else:
+        triesList = {}
+        json_object = json.dumps(triesList, indent=4)
+        with open("tries.json", "w") as o:
+            o.write(json_object)
+
     global scoresList
-    with open("scores.json", "r") as o:
-        scoresList = json.loads(o.read())
+    if os.path.exists("scores.json"):
+        with open("scores.json", "r") as o:
+            scoresList = json.loads(o.read())
+    else:
+        scoresList = {}
+        json_object = json.dumps(scoresList, indent=4)
+        with open("scores.json", "w") as o:
+            o.write(json_object)
 
 
     global namesList
