@@ -20,6 +20,7 @@ async def setup(bot):
     token = ""
     with open('catapi.txt', 'r') as f:
         token = f.readline()
-
+    
+    global apimeow
     apimeow = catapi.CatApi(api_key=token)
     bot.add_command(cat)
