@@ -18,7 +18,9 @@ async def reddit(ctx):
     
 @commands.hybrid_command(description="rock pikmin")
 async def pikmin(ctx):
-    await ctx.send('https://cdn.discordapp.com/attachments/607657189003493376/1053821556624740423/rockPikmin.jpeg')
+    embedPikmin = discord.Embed(title='Rock Pikmin', color=None)
+    embedPikmin.set_image(url='https://cdn.discordapp.com/attachments/607657189003493376/1053821556624740423/rockPikmin.jpeg')
+    await ctx.send(embed=embedPikmin)
 
 @commands.hybrid_command(description='you will recieve a nice message')
 async def textme(ctx):
