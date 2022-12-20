@@ -5,6 +5,7 @@
 import discord
 import asyncio
 from discord.ext import commands
+from botcmds.privilege import adminCheck
 
 #watch out for the order of this:
 cmdNames = ["privilege", "classicCommands", "managementCommands", "cat", "comicCommandsTHXkittrz", "frisk", "mokou", "gilbold", "gilbert", "scoreboard", "gilblist", "uptime"];
@@ -24,7 +25,7 @@ bot = MyClient(command_prefix='ale!', intents=intents)
 
 @bot.hybrid_command()
 async def reload(ctx):
-    if await bot.is_owner(ctx.author):
+    if adminCheck(ctx.author.id):
         for name in cmdNames:
             await bot.reload_extension('botcmds.' + name)
         await bot.tree.sync(guild=None)
@@ -76,5 +77,3 @@ async def main():
         await bot.start(token)
 
 asyncio.run(main())
-
-#bot.run(token)
