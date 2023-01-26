@@ -14,7 +14,7 @@ First, Python requirements:
 
 1. Python 3.8 or higher
 2. discord.py 2.1.0
-3. `asyncio`, `catapi.py`, `requests`, `Pybooru` (the command using this is disabled by default and will probably get deleted soon)
+3. `asyncio`, `catapi.py`, `requests`
 
 Next, files the bot expects to exist (next to main.py):
 
