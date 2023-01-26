@@ -41,7 +41,7 @@ async def gilbert(ctx, *, guess=None):
         await ctx.send('Congratulations, ' + ctx.author.mention + '!' + ' You are the Godbert, you got 1 Gilpoint!')
 
         #to open a file to read
-        #with open("scores.json", "r") as o:
+        #with open("assets/scores.json", "r") as o:
         #    scores = json.loads(o.read())
 
         #if user exists they get one point...
@@ -54,11 +54,11 @@ async def gilbert(ctx, *, guess=None):
         
         #finally it writes the score to the file
         json_object = json.dumps(scoresList, indent=4)
-        with open("scores.json", "w") as o:
+        with open("assets/scores.json", "w") as o:
             o.write(json_object)
 
         #now for the tries:
-        #with open("tries.json", "r") as o:
+        #with open("assets/tries.json", "r") as o:
         #    tries = json.loads(o.read())
 
         if str(idofuser) in (triesList.keys()):
@@ -68,13 +68,13 @@ async def gilbert(ctx, *, guess=None):
             triesList[idofuser] = 1
         
         json_object = json.dumps(triesList, indent=4)
-        with open("tries.json", "w") as o:
+        with open("assets/tries.json", "w") as o:
             o.write(json_object)
 
     #in case of catastrophic failure:
     else:
         await ctx.send('Tough luck!')
-        #with open("tries.json", "r") as o:
+        #with open("assets/tries.json", "r") as o:
         #    tries = json.loads(o.read())
 
         if str(idofuser) in (triesList.keys()):
@@ -84,7 +84,7 @@ async def gilbert(ctx, *, guess=None):
             triesList[str(idofuser)] = 1
         
         json_object = json.dumps(triesList, indent=4)
-        with open("tries.json", "w") as o:
+        with open("assets/tries.json", "w") as o:
             o.write(json_object)
 
 async def getNames():
@@ -103,31 +103,31 @@ async def setup(bot):
     global foobot
     foobot = bot
     global listGilbert
-    if os.path.exists("Gilberts.json"):
-        with open("Gilberts.json", "r") as o:
+    if os.path.exists("assets/Gilberts.json"):
+        with open("assets/Gilberts.json", "r") as o:
             listGilbert = json.loads(o.read())
         bot.add_command(gilbert)
     else:
-        print("gilberts list not found, command disabled")
+        print("assets/Gilberts.json not found, gilbert command disabled")
     # different name so that importing it in scoreboard.py doesn't make it import the function
     global triesList
-    if os.path.exists("tries.json"):
-        with open("tries.json", "r") as o:
+    if os.path.exists("assets/tries.json"):
+        with open("assets/tries.json", "r") as o:
             triesList = json.loads(o.read())
     else:
         triesList = {}
         json_object = json.dumps(triesList, indent=4)
-        with open("tries.json", "w") as o:
+        with open("assets/tries.json", "w") as o:
             o.write(json_object)
 
     global scoresList
-    if os.path.exists("scores.json"):
-        with open("scores.json", "r") as o:
+    if os.path.exists("assets/scores.json"):
+        with open("assets/scores.json", "r") as o:
             scoresList = json.loads(o.read())
     else:
         scoresList = {}
         json_object = json.dumps(scoresList, indent=4)
-        with open("scores.json", "w") as o:
+        with open("assets/scores.json", "w") as o:
             o.write(json_object)
 
 

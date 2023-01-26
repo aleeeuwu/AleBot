@@ -29,7 +29,7 @@ async def add(ctx, id):
             adminList[id] = 1
 
             json_object = json.dumps(adminList, indent=4)
-            with open("adminList.json", "w") as o:
+            with open("assets/adminList.json", "w") as o:
                 o.write(json_object)
 
             await ctx.send('This user is now a privileged user')
@@ -41,12 +41,12 @@ async def setup(bot):
     global foobot
     foobot = bot
     global adminList
-    if os.path.exists("adminList.json"):
-        with open("adminList.json", "r") as o:
+    if os.path.exists("assets/adminList.json"):
+        with open("assets/adminList.json", "r") as o:
             adminList = json.loads(o.read())
     else:
         adminList = {}
-        with open("adminList.json", "w") as o:
+        with open("assets/adminList.json", "w") as o:
             json_object = json.dumps(adminList, indent=4)
             o.write(json_object)
 

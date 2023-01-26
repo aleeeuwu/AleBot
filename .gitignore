@@ -1,19 +1,7 @@
 #AleBot
 *.txt
 *.json
-mokou/
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.webp
-*.mp3
-*.ogg
-*.wav
-*.m4a
-*.mp4
-*.mov
-*.webm
+assets/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -14,7 +14,7 @@ async def fuck(ctx):
 
 @commands.hybrid_command(description='sends the REDDIT image')
 async def reddit(ctx):
-    await ctx.send(file=discord.File('REDDIT.png'))
+    await ctx.send(file=discord.File('assets/REDDIT.png'))
     
 @commands.hybrid_command(description="rock pikmin")
 async def pikmin(ctx):

@@ -4,7 +4,7 @@ import os
 
 @commands.hybrid_command(description='namelist of gilberts')
 async def gilblist(ctx):
-    with open("Gilberts.json", "r") as o:
+    with open("assets/Gilberts.json", "r") as o:
         listGilbert = json.loads(o.read())
     
     list = ''
@@ -20,7 +20,7 @@ async def gilblist(ctx):
 
 async def setup(bot):
     # probably inefficient because this is checked for in gilbert.py already but whatever
-    if not os.path.exists("Gilberts.json"):
-        print("gilberts list not found, command disabled")
+    if not os.path.exists("assets/Gilberts.json"):
+        print("assets/Gilberts.json not found, gilblist command disabled")
         return
     bot.add_command(gilblist)

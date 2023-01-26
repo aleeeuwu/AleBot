@@ -19,7 +19,7 @@ async def guesses(ctx):
         await ctx.send("The guesses scoreboard is currently empty")
         return
     # really dumb, need to do this because I can't get the user's name before the bot logs on
-    #with open("scores.json", "r") as o:
+    #with open("assets/scores.json", "r") as o:
     #    scores = json.loads(o.read())
     #if not namesList:
     #    for userid in triesList:
@@ -42,7 +42,7 @@ async def tries(ctx):
     if not g.triesList:
         await ctx.send("The tries scoreboard is currently empty")
         return
-    #with open("tries.json", "r") as o:
+    #with open("assets/tries.json", "r") as o:
     #    tries = json.loads(o.read())
     #if not namesList:
     #    for userid in triesList:

@@ -20,9 +20,9 @@ Next, files the bot expects to exist (next to main.py):
 
 1. `token.txt` - Discord bot token. This is the only required file for basic functionality.
 2. `catapi.txt` - API key from [TheCatAPI](https://thecatapi.com/).
-3. `frisk.txt` - List of links separated by newlines that is called when calling the "frisk" command.
-4. `gilbert.txt` - List of links separated by newlines that is called when calling the "gilbold" command.
-5. `Gilberts.json` - JSON file containing links and name aliases used by the "gilbert" command, formatted roughly as follows:
+3. `assets/frisk.txt` - List of links separated by newlines that is called when calling the "frisk" command.
+4. `assets/gilbert.txt` - List of links separated by newlines that is called when calling the "gilbold" command.
+5. `assets/Gilberts.json` - JSON file containing links and name aliases used by the "gilbert" command, formatted roughly as follows:
 ```
 {
     "https://cdn.discordapp.com/attachments/934379530729164810/934379708601237534/Ale.png": [
@@ -34,7 +34,7 @@ Next, files the bot expects to exist (next to main.py):
     ]
 }
 ```
-6. `REDDIT.png` - Just an image file uploaded to Discord when calling the "reddit" command.
-7. `mokou/` - A folder with 700 images named `1.jpg` to `700.jpg`. The intended images for this folder can be found [here](https://twitter.com/jokanhiyou/status/1556186890428039168).
+6. `assets/REDDIT.png` - Just an image file uploaded to Discord when calling the "reddit" command.
+7. `assets/mokou/` - A folder with 700 images named `1.jpg` to `700.jpg`. The intended images for this folder can be downloaded from [a Tweet by the artist](https://twitter.com/jokanhiyou/status/1556186890428039168).
 
 Some commands run under bash so on Windows you will need Windows Subsystem for Linux for them to work (the bot runs outside of the subsystem and will only call it when needed). With bash you should only need to install `neofetch` using a package manager.
