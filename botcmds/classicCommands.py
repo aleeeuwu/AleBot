@@ -73,7 +73,7 @@ async def math(ctx):
         b = random.randint(1, 100)
         await ctx.send(f'{a} + {b} = {a + b}')
 
-@math.command()
+@math.command(description='add two numbers')
 async def add(ctx, a: int, b: int):
     if a == 9:
         if b == 10:
@@ -82,19 +82,19 @@ async def add(ctx, a: int, b: int):
             return
     await ctx.send(a + b)
 
-@math.command()
+@math.command(description='substract two numbers')
 async def subtract(ctx, a: int, b: int):
     await ctx.send(a - b)
 
-@math.command()
+@math.command(description='multiply two numbers')
 async def multiply(ctx, a: int, b: int):
     await ctx.send(a * b)
 
-@math.command()
+@math.command(description='divide two numbers')
 async def divide(ctx, a: int, b: int):
     await ctx.send(a / b)
 
-@commands.hybrid_command()
+@commands.hybrid_command(description='DM an user (privilege only)')
 async def dm(ctx, user: discord.User, *, message):
     if adminCheck(ctx.author.id):
         await user.send(message)
@@ -102,7 +102,7 @@ async def dm(ctx, user: discord.User, *, message):
     else:
         await ctx.send('You need privileges to use this command!')
 
-@commands.hybrid_command()
+@commands.hybrid_command(description='Get the avatar from an user')
 async def avatar(ctx, user: discord.User):
     await ctx.send(user.avatar_url)
 
