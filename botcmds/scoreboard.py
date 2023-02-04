@@ -4,7 +4,7 @@ import json
 # have to do this because importing a global variable like "from asdf import g" doesn't work (but for some reason importing an array does)
 import botcmds.gilbert as g
 
-@commands.hybrid_group(description='gilbert scoreboard')
+@commands.hybrid_group(description='Gilbert scoreboard')
 async def scoreboard(ctx):
     if ctx.invoked_subcommand is None:
         await ctx.send('Type "ale!scoreboard guesses" or "ale!scoreboard tries"')

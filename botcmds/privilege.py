@@ -7,7 +7,7 @@ import os
 def adminCheck(userid):
     return (str(userid) in adminList.keys() or foobot.is_owner(discord.Object(id=int(userid))))
 
-@commands.hybrid_group()
+@commands.hybrid_group(description='Checks to see if you are a privileged user')
 async def privilege(ctx):
     if ctx.invoked_subcommand is None:
         if adminCheck(ctx.author.id):

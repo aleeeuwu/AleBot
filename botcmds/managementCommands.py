@@ -3,7 +3,7 @@ from discord.ext import commands
 import subprocess
 from botcmds.privilege import adminCheck
 
-@commands.hybrid_command()
+@commands.hybrid_command(description='Download a file from the internet')
 async def wget(ctx, link, filename=None):
     if adminCheck(ctx.author.id):
         if filename is None:
@@ -46,7 +46,7 @@ async def servers(ctx):
     else:
         await ctx.send('You need privileges to use this command!')
 
-@commands.hybrid_command()
+@commands.hybrid_command(descriptions='Get a list of files in the current directory')
 async def dir(ctx, dir=None):
     if adminCheck(ctx.author.id):
         if dir is None:
