@@ -10,6 +10,10 @@ async def garfield(ctx):
     # weird jank because I can't get the string array thing to print out right
     for i in range(5, 68):
         str += r[urlIndex+i]
+    #ale added this. dumb way to check if the site works but i wanted to do it
+    if 'https://assets.amuniversal.com/' not in str:
+        await ctx.send('Seems like the site is currently down. Please try again later.')
+        return
     await ctx.send(str)
 
 @commands.hybrid_command(description='Sends a random Heathcliff strip from GoComics. Command functionality made by kittrz.')
@@ -20,6 +24,10 @@ async def heathcliff(ctx):
     # weird jank because I can't get the string array thing to print out right
     for i in range(5, 68):
         str += r[urlIndex+i]
+    #ale added this. dumb way to check if the site works but i wanted to do it
+    if 'https://assets.amuniversal.com/' not in str:
+        await ctx.send('Seems like the site is currently down. Please try again later.')
+        return
     await ctx.send(str)
 
 @commands.hybrid_command(description='Sends a random Garfield Minus Garfield strip. Command functionality made by kittrz.')
@@ -59,6 +67,10 @@ async def jon(ctx):
         outputLink = link1
     else:
         outputLink = link2
+    #ale added this. dumb way to check if the site works but i wanted to do it
+    if 'https://64.media.tumblr.' not in outputLink:
+        await ctx.send('Seems like the site is currently down. Please try again later')
+        return
     await ctx.send(outputLink)
 
 async def setup(bot):
