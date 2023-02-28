@@ -51,7 +51,7 @@ async def rng(ctx,arg: int,arg2: int):
 #the legendary and awful hug command.
 @commands.hybrid_command(description='the legendary and awful hug command.')
 async def hug(ctx,*,arg):
-    await ctx.send(f'<@{ctx.author.id}> hugged {arg}!')
+    await ctx.send(f'{ctx.author.mention} hugged {arg}!')
 
 @commands.hybrid_command()
 async def ban(ctx):
