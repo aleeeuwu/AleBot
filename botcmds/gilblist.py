@@ -5,15 +5,15 @@ import os
 @commands.hybrid_command(description='namelist of gilberts')
 async def gilblist(ctx):
     with open("assets/Gilberts.json", "r") as o:
-        listGilbert = json.loads(o.read())
+        gilbert_list = json.loads(o.read())
     
     list = ''
     first = True
     
-    for i in listGilbert:
+    for i in gilbert_list:
         if not first:
             list += ', '
-        list += listGilbert[i][0]
+        list += gilbert_list[i][0]
         first = False
         
     await ctx.send(list)

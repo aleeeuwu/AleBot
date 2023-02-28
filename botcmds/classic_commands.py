@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 import random
-from botcmds.privilege import adminCheck
+from botcmds.privilege import admin_check
 import time
 
 @commands.hybrid_command(description='Hello!')
@@ -18,9 +18,9 @@ async def reddit(ctx):
     
 @commands.hybrid_command(description="rock pikmin")
 async def pikmin(ctx):
-    embedPikmin = discord.Embed(title='Rock Pikmin', color=None)
-    embedPikmin.set_image(url='https://cdn.discordapp.com/attachments/607657189003493376/1053821556624740423/rockPikmin.jpeg')
-    await ctx.send(embed=embedPikmin)
+    embed_pikmin = discord.Embed(title='Rock Pikmin', color=None)
+    embed_pikmin.set_image(url='https://cdn.discordapp.com/attachments/607657189003493376/1053821556624740423/rockPikmin.jpeg')
+    await ctx.send(embed=embed_pikmin)
 
 @commands.hybrid_command(description='you will recieve a nice message')
 async def textme(ctx):
@@ -55,8 +55,8 @@ async def hug(ctx,*,arg):
 
 @commands.hybrid_command()
 async def ban(ctx):
-    theTime = int(time.time()) + 300
-    await ctx.send('`you` will be banned <t:' + str(theTime) + ':R>.')
+    the_time = int(time.time()) + 300
+    await ctx.send('`you` will be banned <t:' + str(the_time) + ':R>.')
 
 @commands.hybrid_command(description='heads or tails')
 async def coinflip(ctx):
@@ -96,7 +96,7 @@ async def divide(ctx, a: int, b: int):
 
 @commands.hybrid_command(description='DM an user (privilege only)')
 async def dm(ctx, user: discord.User, *, message):
-    if adminCheck(ctx.author.id):
+    if admin_check(ctx.author.id):
         await user.send(message)
         print(ctx.author, user, message)
     else:

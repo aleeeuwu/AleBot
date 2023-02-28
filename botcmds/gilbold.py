@@ -5,8 +5,8 @@ import os
 @commands.hybrid_command(description='gilbert classic edition')
 async def gilbold(ctx):
     lines = open('assets/gilbert.txt').read().splitlines()
-    gilbertLine = random.choice(lines)
-    await ctx.send(gilbertLine)
+    gilbert_line = random.choice(lines)
+    await ctx.send(gilbert_line)
 
 async def setup(bot):
     if not os.path.exists("assets/gilbert.txt"):

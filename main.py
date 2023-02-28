@@ -5,16 +5,16 @@
 import discord
 import asyncio
 from discord.ext import commands
-from botcmds.privilege import adminCheck
+from botcmds.privilege import admin_check
 
 #watch out for the order of this:
-cmdNames = ["privilege", "classicCommands", "managementCommands", "cat", "comicCommandsTHXkittrz", "frisk", "mokou", "gilbold", "gilbert", "scoreboard", "gilblist", "uptime"];
+cmd_names = ["privilege", "classic_commands", "management_commands", "cat", "comic_commands_thx_kittrz", "frisk", "mokou", "gilbold", "gilbert", "scoreboard", "gilblist", "uptime"];
 
 class MyClient(commands.Bot):
     def __init__(self, *, command_prefix, intents: discord.Intents):
         super().__init__(command_prefix=command_prefix, intents=intents)
     async def setup_hook(self):
-        for name in cmdNames:
+        for name in cmd_names:
             print(name)
             await self.load_extension('botcmds.' + name)
         await self.tree.sync(guild=None)
@@ -25,8 +25,8 @@ bot = MyClient(command_prefix='ale!', intents=intents)
 
 @bot.hybrid_command()
 async def reload(ctx):
-    if adminCheck(ctx.author.id):
-        for name in cmdNames:
+    if admin_check(ctx.author.id):
+        for name in cmd_names:
             await bot.reload_extension('botcmds.' + name)
         await bot.tree.sync(guild=None)
         await ctx.send('reloaded! (probably)')

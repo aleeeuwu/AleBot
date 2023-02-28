@@ -5,7 +5,7 @@ import time
 from math import floor
 
 # to reduce repeated code
-def getTimeUnits(seconds, divisor, modulus, unitString):
+def get_time_units(seconds, divisor, modulus, unit_str):
     string = ""
     units = 0
     if modulus != -1:
@@ -20,30 +20,30 @@ def getTimeUnits(seconds, divisor, modulus, unitString):
             return ""
         units = floor(seconds/divisor)
 
-    string += str(units) + " " + unitString
+    string += str(units) + " " + unit_str
     if units > 1:
         string += "s"
     return string
 
 @commands.hybrid_command()
 async def uptime(ctx):
-    seconds = time.time() - startTime
+    seconds = time.time() - start_time
     # there's probably some random python module that does this but I don't care enough to read through all of pythons docs right now
-    timeStr = ""
-    timeStr += getTimeUnits(seconds, 60*60*24, -1, "day")
-    timeStr += getTimeUnits(seconds, 60*60, 24, "hour")
-    timeStr += getTimeUnits(seconds, 60, 60, "minute")
+    time_str = ""
+    time_str += get_time_units(seconds, 60*60*24, -1, "day")
+    time_str += get_time_units(seconds, 60*60, 24, "hour")
+    time_str += get_time_units(seconds, 60, 60, "minute")
     if seconds > 60:
-        timeStr += " and "
-    timeStr += str(floor(seconds%60)) 
+        time_str += " and "
+    time_str += str(floor(seconds%60)) 
     if floor(seconds%60) == 1:
-        timeStr += " second"
+        time_str += " second"
     else:
-        timeStr += " seconds"
-    await ctx.send("It has been " + timeStr + " since startup (or reload)")
+        time_str += " seconds"
+    await ctx.send("It has been " + time_str + " since startup (or reload)")
 
 async def setup(bot):
     bot.add_command(uptime)
     # this always happens when reloaded, probably should fix that but idk
-    global startTime
-    startTime = time.time()
+    global start_time
+    start_time = time.time()
