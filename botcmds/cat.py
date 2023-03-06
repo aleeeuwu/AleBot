@@ -4,10 +4,10 @@ import random
 import os
 
 
-@commands.hybrid_command(description='sends a random cat, has a 10% chance of sending a dumbass cat instead')
+@commands.hybrid_command(description='sends a random cat, has a %̶1̶0 1% chance of sending a dumbass cat instead')
 async def cat(ctx):
     cat = await apimeow.search_images(limit=1)
-    chance = random.randint(1, 10)
+    chance = random.randint(1, 100)
     if chance == 10:
         await ctx.send("https://cdn.discordapp.com/attachments/607673609074376876/824823278840578058/IMG_1641.JPG")
     else:
