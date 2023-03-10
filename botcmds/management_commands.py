@@ -5,7 +5,7 @@ from botcmds.privilege import admin_check
 
 @commands.hybrid_command(description='Download a file from the internet')
 async def wget(ctx, link, filename=None):
-    if admin_check(ctx.author.id):
+    if await admin_check(ctx.author.id):
         if filename is None:
             p = subprocess.Popen(['bash', '-c', 'wget ' + link], cwd='assets')
         else:
@@ -17,7 +17,7 @@ async def wget(ctx, link, filename=None):
 
 @commands.hybrid_command(description='sends a file from the host\'s device.')
 async def send(ctx, arg):
-    if admin_check(ctx.author.id):
+    if await admin_check(ctx.author.id):
         await ctx.send(file=discord.File(arg))
     else:
         await ctx.send('You need privileges to use this command!')
@@ -25,7 +25,7 @@ async def send(ctx, arg):
 #deletes a message by its id
 @commands.hybrid_command(description='deletes a message by its id')
 async def delete(ctx,arg):
-    if admin_check(ctx.author.id):
+    if await admin_check(ctx.author.id):
         msg = await ctx.channel.fetch_message(arg)
         await msg.delete()
     else:
@@ -38,7 +38,7 @@ async def neofetch(ctx):
 
 @commands.hybrid_command()
 async def servers(ctx):
-    if admin_check(ctx.author.id):
+    if await admin_check(ctx.author.id):
         server_names = ''
         for guild in foobot.guilds:
             server_names = server_names + guild.name + '\n'
@@ -48,7 +48,7 @@ async def servers(ctx):
 
 @commands.hybrid_command(descriptions='Get a list of files in the current directory')
 async def dir(ctx, dir=None):
-    if admin_check(ctx.author.id):
+    if await admin_check(ctx.author.id):
         if dir is None:
             command = subprocess.Popen(['bash', '-c', 'ls -1'], stdout=subprocess.PIPE)
         else:
