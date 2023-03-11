@@ -1,12 +1,11 @@
-#textphone = False
-#first_phone_channel = 0
-#second_phone_channel = 0
-
 import discord
 import asyncio
 import os
 from discord.ext import commands
 from botcmds.privilege import admin_check
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 #watch out for the order of this:
 cmd_names = ["privilege", "classic_commands", "management_commands", "cat", "comic_commands_thx_kittrz", "frisk", "mokou", "gilbert", "scoreboard", "gilblist", "uptime"];
@@ -58,20 +57,6 @@ async def on_ready():
     game = discord.Game("gaming edition")
 #funny status
     await bot.change_presence(status=discord.Status.online, activity=game)
-
-#This is the stuff for the 'phone' command but it stopped working, probably needs a redesign
-#@bot.event
-#async def on_message(message):
-#    if message.author == bot.user:
-#        return
-#    if textphone == True:
-#        if int(message.channel.id) == int(first_phone_channel):
-#            channel = await bot.fetch_channel(int(second_phone_channel))
-#            await channel.send(message.author.name + ': ' + message.content)
-#        if int(message.channel.id) == int(second_phone_channel):
-#            channel = await bot.fetch_channel(int(first_phone_channel))
-#            await channel.send(message.author.name + ': ' + message.content)
-#    await bot.process_commands(message)
 
 with open('token.txt', 'r') as f:
     token = f.readline()
