@@ -71,6 +71,7 @@ async def on_ready():
 
 with open('token.txt', 'r') as f:
     token = f.readline()
+    f.close()
 
 async def main():
     async with bot:

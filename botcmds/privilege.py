@@ -34,6 +34,7 @@ async def add(ctx, id):
             json_object = json.dumps(admin_list, indent=4)
             with open("assets/adminList.json", "w") as o:
                 o.write(json_object)
+                o.close()
 
             await ctx.send('This user is now a privileged user')
     else:
@@ -47,9 +48,11 @@ async def setup(bot):
     if os.path.exists("assets/adminList.json"):
         with open("assets/adminList.json", "r") as o:
             admin_list = json.loads(o.read())
+            o.close()
     else:
         admin_list = {}
         with open("assets/adminList.json", "w") as o:
             json_object = json.dumps(admin_list, indent=4)
             o.write(json_object)
+            o.close()
 
