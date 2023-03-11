@@ -4,6 +4,7 @@
 
 import discord
 import asyncio
+import os
 from discord.ext import commands
 from botcmds.privilege import admin_check
 
@@ -14,6 +15,9 @@ class MyClient(commands.Bot):
     def __init__(self, *, command_prefix, intents: discord.Intents):
         super().__init__(command_prefix=command_prefix, intents=intents)
     async def setup_hook(self):
+        if not os.path.isdir("assets"):
+            print("assets directory not found, creating it now")
+            os.makedirs("assets")
         for name in cmd_names:
             print(name)
             await self.load_extension('botcmds.' + name)
