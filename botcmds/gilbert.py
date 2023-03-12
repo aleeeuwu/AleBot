@@ -43,6 +43,14 @@ async def gilbert(ctx, *, guess=None):
         #to open a file to read
         #with open("assets/scores.json", "r") as o:
         #    scores = json.loads(o.read())
+        #first checks to see if the user has played or not before, and if not, adds it to the user list
+        if not str(user_id) in (users_list.keys()):
+            users_list[user_id] = 1
+
+            json_object = json.dumps(users_list, indent=4)
+            with open("assets/users.json", "w") as o:
+                o.write(json_object)
+                o.close()
 
         #if user exists they get one point...
         if str(user_id) in (scores_list.keys()):
@@ -79,6 +87,15 @@ async def gilbert(ctx, *, guess=None):
         #with open("assets/tries.json", "r") as o:
         #    tries = json.loads(o.read())
 
+        #first checks to see if the user has played or not before, and if not, adds it to the user list
+        if not str(user_id) in (users_list.keys()):
+            users_list[user_id] = 1
+
+            json_object = json.dumps(users_list, indent=4)
+            with open("assets/users.json", "w") as o:
+                o.write(json_object)
+                o.close()
+
         if str(user_id) in (tries_list.keys()):
             tries_list[str(user_id)] += 1
 
@@ -95,7 +112,7 @@ async def get_names():
     # have to import THIS FILE because of weird python and asyncio shenanigans lmao
     import botcmds.gilbert as g
     if not names_list:
-        for userid in tries_list:
+        for userid in users_list:
             current_user = await foobot.fetch_user(userid)
             names_list[userid] = current_user.name
     g.names_loaded = True
@@ -113,6 +130,19 @@ async def setup(bot):
         bot.add_command(gilbert)
     else:
         print("assets/Gilberts.json not found, gilbert command disabled")
+
+    global users_list
+    if os.path.exists("assets/users.json"):
+        with open("assets/users.json", "r") as o:
+            users_list = json.loads(o.read())
+            o.close()
+    else:
+        users_list = {}
+        json_object = json.dumps(users_list, indent=4)
+        with open("assets/users.json", "w") as o:
+            o.write(json_object)
+            o.close()
+    
     # different name so that importing it in scoreboard.py doesn't make it import the function
     global tries_list
     if os.path.exists("assets/tries.json"):
