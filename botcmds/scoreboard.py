@@ -8,7 +8,7 @@ import botcmds.gilbert as g
 @commands.hybrid_group(description='Gilbert scoreboard')
 async def scoreboard(ctx):
     if ctx.invoked_subcommand is None:
-        await ctx.send('Type "ale!scoreboard guesses" or "ale!scoreboard tries"')
+        await ctx.send('Type "ale!scoreboard wins" or "ale!scoreboard attempts"')
 
 @scoreboard.command()
 async def wins(ctx):
