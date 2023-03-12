@@ -191,6 +191,13 @@ async def setup(bot):
             o.write(json_object)
             o.close()
 
+
+    if not os.path.isdir("scoreboards/wins"):
+        os.makedirs("scoreboards/wins")
+
+    if not os.path.isdir("scoreboards/attempts"):
+        os.makedirs("scoreboards/attempts")
+
     global scores_list
     if os.path.exists("assets/scores.json"):
         with open("assets/scores.json", "r") as o:
