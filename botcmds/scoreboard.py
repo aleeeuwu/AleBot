@@ -11,14 +11,19 @@ async def scoreboard(ctx):
         await ctx.send('Type "ale!scoreboard guesses" or "ale!scoreboard tries"')
 
 @scoreboard.command()
-async def guesses(ctx):
+async def wins(ctx):
     if not g.names_loaded:
         await ctx.send("Command currently disabled because the names aren't loaded yet")
         return
 
-    if not g.scores_list:
-        await ctx.send("The guesses scoreboard is currently empty")
+    if not os.path.exists("scoreboards/wins/" + str(ctx.guild.id) + ".json"):
+        await ctx.send("The wins scoreboard is currently empty")
         return
+
+    with open("scoreboards/wins/" + str(ctx.guild.id) + ".json", "r") as o:
+        wins = json.loads(o.read())
+        o.close()
+
     # really dumb, need to do this because I can't get the user's name before the bot logs on
     #with open("assets/scores.json", "r") as o:
     #    scores = json.loads(o.read())
@@ -29,7 +34,7 @@ async def guesses(ctx):
     
     board = ''
     
-    for i in sorted(g.scores_list.items(), key=lambda x:x[1], reverse=True):
+    for i in sorted(wins.items(), key=lambda x:x[1], reverse=True):
         board += (g.names_list[i[0]] + " - " + str(i[1]) + '\n')
     
     await ctx.send(board)
@@ -41,7 +46,7 @@ async def attempts(ctx):
         return
 
     if not os.path.exists("scoreboards/attempts/" + str(ctx.guild.id) + ".json"):
-        await ctx.send("The tries scoreboard is currently empty")
+        await ctx.send("The attempts scoreboard is currently empty")
         return
 
     with open("scoreboards/attempts/" + str(ctx.guild.id) + ".json", "r") as o:
