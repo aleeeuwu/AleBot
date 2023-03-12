@@ -40,10 +40,6 @@ async def gilbert(ctx, *, guess=None):
     if guess.lower() in value_gilbert:
         await ctx.send('Congratulations, ' + ctx.author.mention + '!' + ' You are the Godbert, you got 1 Gilpoint!')
 
-        #to open a file to read
-        #with open("assets/scores.json", "r") as o:
-        #    scores = json.loads(o.read())
-
         #first checks to see if the user has played or not before, and if not, adds it to the user list
         if not str(user_id) in (users_list.keys()):
             users_list[user_id] = 1
@@ -53,34 +49,60 @@ async def gilbert(ctx, *, guess=None):
                 o.write(json_object)
                 o.close()
 
+        #check if the scoreboard file for the server exists, if not, makes it
+        if os.path.exists("scoreboards/wins/" + str(ctx.guild.id) + ".json"):
+            with open("scoreboards/wins/" + str(ctx.guild.id) + ".json", "r") as o:
+                wins = json.loads(o.read())
+                o.close()
+
+        #reads the scoreboard file for the server
+        else:
+            wins = {}
+            json_object = json.dumps(wins, indent=4)
+            with open("scoreboards/wins/" + str(ctx.guild.id) + ".json", "w") as o:
+                o.write(json_object)
+                o.close()
+
         #if user exists they get one point...
-        if str(user_id) in (scores_list.keys()):
-            scores_list[str(user_id)] += 1
+        if str(user_id) in (wins.keys()):
+            wins[str(user_id)] += 1
 
         #and if they don't, they get added
         else:
-            scores_list[str(user_id)] = 1
+            wins[str(user_id)] = 1
         
         #finally it writes the score to the file
-        json_object = json.dumps(scores_list, indent=4)
-        with open("assets/scores.json", "w") as o:
+        json_object = json.dumps(wins, indent=4)
+        with open("scoreboards/wins/" + str(ctx.guild.id) + ".json", "w") as o:
             o.write(json_object)
             o.close()
 
         #now for the tries:
-        #with open("assets/tries.json", "r") as o:
-        #    tries = json.loads(o.read())
 
-        if str(user_id) in (tries_list.keys()):
-            tries_list[str(user_id)] += 1
+        #check if the scoreboard file for the server exists, if not, makes it
+        if os.path.exists("scoreboards/attempts/" + str(ctx.guild.id) + ".json"):
+            with open("scoreboards/attempts/" + str(ctx.guild.id) + ".json", "r") as o:
+                attempts = json.loads(o.read())
+                o.close()
+
+        #reads the scoreboard file for the server
+        else:
+            attempts = {}
+            json_object = json.dumps(attempts, indent=4)
+            with open("scoreboards/attempts/" + str(ctx.guild.id) + ".json", "w") as o:
+                o.write(json_object)
+                o.close()
+
+        if str(user_id) in (attempts.keys()):
+            attempts[str(user_id)] += 1
 
         else:
-            tries_list[user_id] = 1
+            attempts[str(user_id)] = 1
         
-        json_object = json.dumps(tries_list, indent=4)
-        with open("assets/tries.json", "w") as o:
-            o.write(json_object)
-            o.close()
+        json_object = json.dumps(attempts, indent=4)
+        with open("scoreboards/attempts/" + str(ctx.guild.id) + ".json", "w") as o:
+             o.write(json_object)
+             o.close()
 
     #in case of catastrophic failure:
     else:
