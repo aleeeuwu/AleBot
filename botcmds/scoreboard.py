@@ -23,14 +23,6 @@ async def wins(ctx):
     with open("scoreboards/wins/" + str(ctx.guild.id) + ".json", "r") as o:
         wins = json.loads(o.read())
         o.close()
-
-    # really dumb, need to do this because I can't get the user's name before the bot logs on
-    #with open("assets/scores.json", "r") as o:
-    #    scores = json.loads(o.read())
-    #if not names_list:
-    #    for userid in tries_list:
-    #        current_user = await foobot.fetch_user(userid)
-    #        names_list[userid] = current_user.name
     
     board = ''
     
@@ -52,11 +44,6 @@ async def attempts(ctx):
     with open("scoreboards/attempts/" + str(ctx.guild.id) + ".json", "r") as o:
         attempts = json.loads(o.read())
         o.close()
-
-    #if not names_list:
-    #    for userid in tries_list:
-    #        current_user = await foobot.fetch_user(userid)
-    #        names_list[userid] = current_user.name
     
     board = ''
     
