@@ -56,6 +56,7 @@ async def gilbert(ctx, *, guess=None):
         json_object = json.dumps(scores_list, indent=4)
         with open("assets/scores.json", "w") as o:
             o.write(json_object)
+            o.close()
 
         #now for the tries:
         #with open("assets/tries.json", "r") as o:
@@ -70,6 +71,7 @@ async def gilbert(ctx, *, guess=None):
         json_object = json.dumps(tries_list, indent=4)
         with open("assets/tries.json", "w") as o:
             o.write(json_object)
+            o.close()
 
     #in case of catastrophic failure:
     else:
@@ -86,6 +88,7 @@ async def gilbert(ctx, *, guess=None):
         json_object = json.dumps(tries_list, indent=4)
         with open("assets/tries.json", "w") as o:
             o.write(json_object)
+            o.close()
 
 async def get_names():
     print("getting scoreboard names")
@@ -106,6 +109,7 @@ async def setup(bot):
     if os.path.exists("assets/Gilberts.json"):
         with open("assets/Gilberts.json", "r") as o:
             gilbert_list = json.loads(o.read())
+            o.close()
         bot.add_command(gilbert)
     else:
         print("assets/Gilberts.json not found, gilbert command disabled")
@@ -114,21 +118,25 @@ async def setup(bot):
     if os.path.exists("assets/tries.json"):
         with open("assets/tries.json", "r") as o:
             tries_list = json.loads(o.read())
+            o.close()
     else:
         tries_list = {}
         json_object = json.dumps(tries_list, indent=4)
         with open("assets/tries.json", "w") as o:
             o.write(json_object)
+            o.close()
 
     global scores_list
     if os.path.exists("assets/scores.json"):
         with open("assets/scores.json", "r") as o:
             scores_list = json.loads(o.read())
+            o.close()
     else:
         scores_list = {}
         json_object = json.dumps(scores_list, indent=4)
         with open("assets/scores.json", "w") as o:
             o.write(json_object)
+            o.close()
 
 
     global names_list

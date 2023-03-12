@@ -1,19 +1,22 @@
-#textphone = False
-#first_phone_channel = 0
-#second_phone_channel = 0
-
 import discord
 import asyncio
+import os
 from discord.ext import commands
 from botcmds.privilege import admin_check
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 #watch out for the order of this:
-cmd_names = ["privilege", "classic_commands", "management_commands", "cat", "comic_commands_thx_kittrz", "frisk", "mokou", "gilbold", "gilbert", "scoreboard", "gilblist", "uptime"];
+cmd_names = ["privilege", "classic_commands", "management_commands", "cat", "comic_commands_thx_kittrz", "frisk", "mokou", "gilbert", "scoreboard", "gilblist", "uptime"];
 
 class MyClient(commands.Bot):
     def __init__(self, *, command_prefix, intents: discord.Intents):
         super().__init__(command_prefix=command_prefix, intents=intents)
     async def setup_hook(self):
+        if not os.path.isdir("assets"):
+            print("assets directory not found, creating it now")
+            os.makedirs("assets")
         for name in cmd_names:
             print(name)
             await self.load_extension('botcmds.' + name)
@@ -55,22 +58,9 @@ async def on_ready():
 #funny status
     await bot.change_presence(status=discord.Status.online, activity=game)
 
-#This is the stuff for the 'phone' command but it stopped working, probably needs a redesign
-#@bot.event
-#async def on_message(message):
-#    if message.author == bot.user:
-#        return
-#    if textphone == True:
-#        if int(message.channel.id) == int(first_phone_channel):
-#            channel = await bot.fetch_channel(int(second_phone_channel))
-#            await channel.send(message.author.name + ': ' + message.content)
-#        if int(message.channel.id) == int(second_phone_channel):
-#            channel = await bot.fetch_channel(int(first_phone_channel))
-#            await channel.send(message.author.name + ': ' + message.content)
-#    await bot.process_commands(message)
-
 with open('token.txt', 'r') as f:
     token = f.readline()
+    f.close()
 
 async def main():
     async with bot:

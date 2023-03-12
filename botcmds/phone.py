@@ -8,7 +8,7 @@ async def phone(ctx):
 
 @phone.command()
 async def start(ctx, phonechannelid2: int):
-    if adminCheck(ctx.author.id):
+    if await adminCheck(ctx.author.id):
         global textphone
         global first_phone_channel
         global second_phone_channel
@@ -25,7 +25,7 @@ async def start(ctx, phonechannelid2: int):
 
 @phone.command()
 async def stop(ctx):
-    if adminCheck(ctx.author.id):
+    if await adminCheck(ctx.author.id):
         global textphone
         global first_phone_channel
         global second_phone_channel

@@ -96,7 +96,7 @@ async def divide(ctx, a: int, b: int):
 
 @commands.hybrid_command(description='DM an user (privilege only)')
 async def dm(ctx, user: discord.User, *, message):
-    if admin_check(ctx.author.id):
+    if await admin_check(ctx.author.id):
         await user.send(message)
         print(ctx.author, user, message)
     else:

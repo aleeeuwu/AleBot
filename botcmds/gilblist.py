@@ -6,6 +6,7 @@ import os
 async def gilblist(ctx):
     with open("assets/Gilberts.json", "r") as o:
         gilbert_list = json.loads(o.read())
+        o.close()
     
     list = ''
     first = True
