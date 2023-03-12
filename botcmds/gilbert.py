@@ -43,6 +43,7 @@ async def gilbert(ctx, *, guess=None):
         #to open a file to read
         #with open("assets/scores.json", "r") as o:
         #    scores = json.loads(o.read())
+
         #first checks to see if the user has played or not before, and if not, adds it to the user list
         if not str(user_id) in (users_list.keys()):
             users_list[user_id] = 1
@@ -84,8 +85,6 @@ async def gilbert(ctx, *, guess=None):
     #in case of catastrophic failure:
     else:
         await ctx.send('Tough luck!')
-        #with open("assets/tries.json", "r") as o:
-        #    tries = json.loads(o.read())
 
         #first checks to see if the user has played or not before, and if not, adds it to the user list
         if not str(user_id) in (users_list.keys()):
@@ -95,17 +94,31 @@ async def gilbert(ctx, *, guess=None):
             with open("assets/users.json", "w") as o:
                 o.write(json_object)
                 o.close()
+        
+        #check if the scoreboard file for the server exists, if not, makes it
+        if os.path.exists("scoreboards/attempts/" + str(ctx.guild.id) + ".json"):
+            with open("scoreboards/attempts/" + str(ctx.guild.id) + ".json", "r") as o:
+                attempts = json.loads(o.read())
+                o.close()
 
-        if str(user_id) in (tries_list.keys()):
-            tries_list[str(user_id)] += 1
+        #reads the scoreboard file for the server
+        else:
+            attempts = {}
+            json_object = json.dumps(attempts, indent=4)
+            with open("scoreboards/attempts/" + str(ctx.guild.id) + ".json", "w") as o:
+                o.write(json_object)
+                o.close()
+
+        if str(user_id) in (attempts.keys()):
+            attempts[str(user_id)] += 1
 
         else:
-            tries_list[str(user_id)] = 1
+            attempts[str(user_id)] = 1
         
-        json_object = json.dumps(tries_list, indent=4)
-        with open("assets/tries.json", "w") as o:
-            o.write(json_object)
-            o.close()
+        json_object = json.dumps(attempts, indent=4)
+        with open("scoreboards/attempts/" + str(ctx.guild.id) + ".json", "w") as o:
+             o.write(json_object)
+             o.close()
 
 async def get_names():
     print("getting scoreboard names")
