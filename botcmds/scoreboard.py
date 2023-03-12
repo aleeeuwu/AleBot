@@ -1,5 +1,6 @@
 from discord.ext import commands
 import json
+import os
 
 # have to do this because importing a global variable like "from asdf import g" doesn't work (but for some reason importing an array does)
 import botcmds.gilbert as g
@@ -34,16 +35,19 @@ async def guesses(ctx):
     await ctx.send(board)
 
 @scoreboard.command()
-async def tries(ctx):
+async def attempts(ctx):
     if not g.names_loaded:
         await ctx.send("Command currently disabled because the names aren't loaded yet")
         return
 
-    if not g.tries_list:
+    if not os.path.exists("scoreboards/attempts/" + str(ctx.guild.id) + ".json"):
         await ctx.send("The tries scoreboard is currently empty")
         return
-    #with open("assets/tries.json", "r") as o:
-    #    tries = json.loads(o.read())
+
+    with open("scoreboards/attempts/" + str(ctx.guild.id) + ".json", "r") as o:
+        attempts = json.loads(o.read())
+        o.close()
+
     #if not names_list:
     #    for userid in tries_list:
     #        current_user = await foobot.fetch_user(userid)
@@ -51,7 +55,7 @@ async def tries(ctx):
     
     board = ''
     
-    for i in sorted(g.tries_list.items(), key=lambda x:x[1], reverse=True):
+    for i in sorted(attempts.items(), key=lambda x:x[1], reverse=True):
         board += (g.names_list[i[0]] + " - " + str(i[1]) + '\n')
     
     await ctx.send(board)
