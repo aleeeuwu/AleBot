@@ -43,10 +43,23 @@ async def luigiping(ctx):
     await ctx.send('https://cdn.discordapp.com/attachments/806576196388913232/806576253536174161/MP3_Luigi_Artwork.png')
 
 #picks a random number between the specified numbers
-@commands.hybrid_command(description='picks a random number between the specified numbers')
+@commands.hybrid_group(description='picks a random number between the specified numbers')
 async def rng(ctx,arg: int,arg2: int):
-    random.randint(arg, arg2)
-    await ctx.send(random.randint(arg, arg2))
+    if ctx.invoked_subcommand is None:
+        random.randint(arg, arg2)
+        await ctx.send(random.randint(arg, arg2))
+
+@rng.command(description='''If the number can be divided by 3 it's Fizz, if it can by 5 it's Buzz, and if both, FizzBuzz.''')
+async def fizzbuzz(ctx):
+    randomnumber = random.randint(1, 1000)
+    if randomnumber % 3 == 0.0 and randomnumber % 5 == 0.0:
+            await ctx.send(f'{randomnumber} - FizzBuzz!')
+    elif randomnumber % 3 == 0.0:
+            await ctx.send(f'{randomnumber} - Fizz!')   
+    elif randomnumber % 5 == 0.0:
+            await ctx.send(f'{randomnumber} - Buzz!')
+    else:
+            await ctx.send(f'{randomnumber} - None!')
 
 #the legendary and awful hug command.
 @commands.hybrid_command(description='the legendary and awful hug command.')
