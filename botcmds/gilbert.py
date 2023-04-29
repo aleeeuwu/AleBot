@@ -3,12 +3,20 @@ import json
 import random
 import asyncio
 import os
+import time
 
 @commands.hybrid_command(description='gilbert')
 async def gilbert(ctx, *, guess=None):
     if not names_loaded:
-        await ctx.send("Command currently disabled because the names aren't loaded yet")
-        return
+        message = await ctx.reply("Please wait a moment as the names get loaded...")
+        # Should make an "Alebot is typing..." thingy. Please?
+        async with ctx.typing():
+            time.sleep(10)
+            await message.delete()
+            if names_loaded != True:
+                await ctx.reply("There was an error loading the names! Please contact an Alebot Tester™.")
+                return
+            
 
     #picks random bert
     random_gilbert = random.choice(list(gilbert_list.keys()))
