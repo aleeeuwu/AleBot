@@ -42,6 +42,13 @@ async def luigiping(ctx):
     await ctx.send(f'Mama mia! The-a ping is {round(foobot.latency * 1000)}ms!')
     await ctx.send('https://cdn.discordapp.com/attachments/806576196388913232/806576253536174161/MP3_Luigi_Artwork.png')
 
+@commands.hybrid_command(description='Sends cat luigi, has a 1/100 chance of sending cat mario')
+async def luigicat(ctx):
+    if random.randint(1, 100) == 1:
+        await ctx.send('https://cdn.discordapp.com/attachments/802980712348647428/1117885134738292797/800px-Cat_Mario_Artwork_-_Super_Mario_3D_World.png')
+    else:
+        await ctx.send('https://cdn.discordapp.com/attachments/806576196388913232/1117884739509043323/800px-Cat_Luigi_Artwork_-_Super_Mario_3D_World.png')
+
 #picks a random number between the specified numbers
 @commands.hybrid_group(description='picks a random number between the specified numbers')
 async def rng(ctx,arg: int,arg2: int):
@@ -128,6 +135,7 @@ async def setup(bot):
     bot.add_command(echo)
     bot.add_command(ping)
     bot.add_command(luigiping)
+    bot.add_command(luigicat)
     bot.add_command(rng)
     bot.add_command(hug)
     bot.add_command(ban)
