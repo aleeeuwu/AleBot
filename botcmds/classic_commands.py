@@ -124,7 +124,7 @@ async def dm(ctx, user: discord.User, *, message):
 
 @commands.hybrid_command(description='Get the avatar from an user')
 async def avatar(ctx, user: discord.User):
-    await ctx.send(user.avatar_url)
+    await ctx.send(user.avatar)
 
 async def setup(bot):
     bot.add_command(hello)
