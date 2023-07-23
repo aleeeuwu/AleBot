@@ -8,14 +8,14 @@ import time
 @commands.hybrid_command(description='gilbert')
 async def gilbert(ctx, *, guess=None):
     if not names_loaded:
-        message = await ctx.reply("Please wait a moment as the names get loaded...")
-        # Should make an "Alebot is typing..." thingy. Please?
-        async with ctx.typing():
-            time.sleep(10)
-            await message.delete()
-            if names_loaded != True:
-                await ctx.reply("There was an error loading the names! Please contact an Alebot Tester™.")
-                return
+        await ctx.send("Command currently disabled because the names aren't loaded yet")
+        return
+
+        # really dumb, need to do this because I can't get the user's name before the bot logs on
+        #if not names_list:
+        #    for userid in tries_list:
+        #        current_user = await foobot.fetch_user(userid)
+        #        names_list[userid] = current_user.name
             
 
     #picks random bert
