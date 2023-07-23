@@ -1,5 +1,6 @@
 from discord.ext import commands
 import json
+from botcmds.gilbonus import bonus_check
 import random
 import asyncio
 import os
