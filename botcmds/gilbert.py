@@ -51,13 +51,13 @@ async def gilbert(ctx, *, guess=None):
     if guess.lower() in value_gilbert:
         await ctx.send('Congratulations, ' + ctx.author.mention + '!' + ' You are the Godbert, you got 1 Gilpoint!')
 
-        #check if the scoreboard file for the server exists, if not, makes it
+        #reads the scoreboard file for the server
         if os.path.exists("scoreboards/wins/" + str(ctx.guild.id) + ".json"):
             with open("scoreboards/wins/" + str(ctx.guild.id) + ".json", "r") as o:
                 wins = json.loads(o.read())
                 o.close()
 
-        #reads the scoreboard file for the server
+        #check if the scoreboard file for the server exists, if not, makes it
         else:
             wins = {}
             json_object = json.dumps(wins, indent=4)
@@ -84,13 +84,13 @@ async def gilbert(ctx, *, guess=None):
         await ctx.send('Tough luck!')
 
     # update attempts scores
-    #check if the scoreboard file for the server exists, if not, makes it
+    #read the scoreboard file for the server
     if os.path.exists("scoreboards/attempts/" + str(ctx.guild.id) + ".json"):
         with open("scoreboards/attempts/" + str(ctx.guild.id) + ".json", "r") as o:
             attempts = json.loads(o.read())
             o.close()
 
-    #reads the scoreboard file for the server
+    #check if the scoreboard file for the server exists, if not, makes it
     else:
         attempts = {}
         json_object = json.dumps(attempts, indent=4)
