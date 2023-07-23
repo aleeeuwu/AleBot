@@ -8,7 +8,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 #watch out for the order of this:
-cmd_names = ["privilege", "classic_commands", "management_commands", "cat", "comic_commands_thx_kittrz", "frisk", "mokou", "gilbert", "scoreboard", "gilblist", "uptime"];
+cmd_names = ["privilege", "classic_commands", "management_commands", "cat", "comic_commands_thx_kittrz", "frisk", "mokou", "gilbonus", "gilbert", "scoreboard", "gilblist", "uptime"];
 
 class MyClient(commands.Bot):
     def __init__(self, *, command_prefix, intents: discord.Intents):
