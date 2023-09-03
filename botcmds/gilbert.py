@@ -6,32 +6,44 @@ import asyncio
 import os
 import time
 
-# Returns a scoreboard list for a particular server... type should be "wins" or "attempts" but if we ever make more scoreboards for some weird reason then any scoreboard file name can go here
-async def get_scoreboard(guild_id: int, type: str):
-    #reads the scoreboard file for the server
+# Returns a scoreboard list, optionally for a particular server... type should be "wins" or "attempts" but if we ever make more scoreboards for some weird reason then any scoreboard file name can go here
+async def get_scoreboard(type: str, guild_id=None):
     if os.path.exists("scoreboards/" + type + ".json"):
         with open("scoreboards/" + type + ".json", "r") as o:
-             = json.loads(o.read())
+            scoreboard = json.loads(o.read())
             o.close()
-            
-            return wins
+        
+        if guild_id is None:
+            return scoreboard
+        
+        guild_id = str(guild_id)
+        
+        if guild_id in scoreboard:
+            return scoreboard[guild_id]
     
     return {}
 
 # Returns an int of wins for a user in a server
-async def get_points(guild_id: int, user_id: int):
-    wins = get_scoreboard(guild_id)
+async def get_points(guild_id, user_id):
+    guild_id = str(guild_id)
+    user_id = str(user_id)
     
-    if guild_id not in wins: return 0
-    if user_id not in wins[guild_id]: return 0
+    wins = await get_scoreboard("wins", guild_id)
     
-    return wins[guild_id][user_id]
+    if user_id in wins:
+        return wins[user_id]
+    
+    return 0
 
-# Returns an int of attempts for a user in a server
-async def set_points(guild_id: int, user_id: int, value: int):
-    wins = get_scoreboard(guild_id, "wins")
+# Sets the amount of points a user has in a server... use with caution...
+async def set_points(guild_id, user_id, value: int):
+    guild_id = str(guild_id)
+    user_id = str(user_id)
     
-    if guild_id not in wins: wins[guild_id] = {}
+    wins = await get_scoreboard("wins")
+    
+    if guild_id not in wins:
+        wins[guild_id] = {}
     
     wins[guild_id][user_id] = value
     
@@ -40,13 +52,16 @@ async def set_points(guild_id: int, user_id: int, value: int):
         o.close()
 
 # Returns an int of attempts for a user in a server
-async def get_attempts(guild_id: int, user_id: int):
-    attempts = get_scoreboard(guild_id, "attempts")
+async def get_attempts(guild_id, user_id):
+    guild_id = str(guild_id)
+    user_id = str(user_id)
     
-    if guild_id not in attempts: return 0
-    if user_id not in attempts[guild_id]: return 0
+    attempts = await get_scoreboard("attempts", guild_id)
     
-    return attempts[guild_id][user_id]
+    if user_id in attempts:
+        return attempts[user_id]
+    
+    return 0
 
 @commands.hybrid_command(description='gilbert')
 async def gilbert(ctx, *, guess=None):
