@@ -93,8 +93,7 @@ async def gilbert(ctx, *, guess=None):
         return
 
     if user_id not in names_list:
-        current_user = await foobot.fetch_user(user_id)
-        names_list[user_id] = current_user.name
+        names_list[str(user_id)] = ctx.author.name
 
     #first checks to see if the user has played or not before, and if not, adds it to the user list
     if not str(user_id) in (users_list.keys()):
