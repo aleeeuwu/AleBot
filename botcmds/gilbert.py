@@ -6,6 +6,48 @@ import asyncio
 import os
 import time
 
+# Returns a scoreboard list for a particular server... type should be "wins" or "attempts" but if we ever make more scoreboards for some weird reason then any scoreboard file name can go here
+async def get_scoreboard(guild_id: int, type: str):
+    #reads the scoreboard file for the server
+    if os.path.exists("scoreboards/" + type + ".json"):
+        with open("scoreboards/" + type + ".json", "r") as o:
+             = json.loads(o.read())
+            o.close()
+            
+            return wins
+    
+    return {}
+
+# Returns an int of wins for a user in a server
+async def get_points(guild_id: int, user_id: int):
+    wins = get_scoreboard(guild_id)
+    
+    if guild_id not in wins: return 0
+    if user_id not in wins[guild_id]: return 0
+    
+    return wins[guild_id][user_id]
+
+# Returns an int of attempts for a user in a server
+async def set_points(guild_id: int, user_id: int, value: int):
+    wins = get_scoreboard(guild_id, "wins")
+    
+    if guild_id not in wins: wins[guild_id] = {}
+    
+    wins[guild_id][user_id] = value
+    
+    with open("scoreboards/wins.json", "w") as o:
+        o.write(json.dumps(wins, indent=4))
+        o.close()
+
+# Returns an int of attempts for a user in a server
+async def get_attempts(guild_id: int, user_id: int):
+    attempts = get_scoreboard(guild_id, "attempts")
+    
+    if guild_id not in attempts: return 0
+    if user_id not in attempts[guild_id]: return 0
+    
+    return attempts[guild_id][user_id]
+
 @commands.hybrid_command(description='gilbert')
 async def gilbert(ctx, *, guess=None):
     if not names_loaded:
