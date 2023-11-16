@@ -1,9 +1,7 @@
 from discord.ext import commands
 import json
 import os
-
-# have to do this because importing a global variable like "from asdf import g" doesn't work (but for some reason importing an array does)
-import botcmds.gilbert as g
+from botcmds.gilbert import get_scoreboard
 
 @commands.hybrid_group(description='Gilbert scoreboard')
 async def scoreboard(ctx):
@@ -12,43 +10,43 @@ async def scoreboard(ctx):
 
 @scoreboard.command()
 async def wins(ctx):
-    if not g.names_loaded:
-        await ctx.send("Command currently disabled because the names aren't loaded yet")
-        return
-
-    if not os.path.exists("scoreboards/wins/" + str(ctx.guild.id) + ".json"):
+    wins = await get_scoreboard("wins", ctx.guild.id)
+    
+    if wins == {}:
         await ctx.send("The wins scoreboard is currently empty")
         return
-
-    with open("scoreboards/wins/" + str(ctx.guild.id) + ".json", "r") as o:
-        wins = json.loads(o.read())
-        o.close()
     
-    board = ''
-    
-    for i in sorted(wins.items(), key=lambda x:x[1], reverse=True):
-        board += (g.names_list[i[0]] + " - " + str(i[1]) + '\n')
-    
+    async with ctx.typing():
+        await ctx.guild.chunk(cache=True)
+        
+        board = ''
+        
+        for i in sorted(wins.items(), key=lambda x:x[1], reverse=True):
+            user = ctx.guild.get_member(int(i[0]))
+            if user is None:
+                user = await foobot.fetch_user(int(i[0]))
+            board += (user.display_name + " - " + str(i[1]) + '\n')
+        
     await ctx.send(board)
 
 @scoreboard.command()
 async def attempts(ctx):
-    if not g.names_loaded:
-        await ctx.send("Command currently disabled because the names aren't loaded yet")
-        return
-
-    if not os.path.exists("scoreboards/attempts/" + str(ctx.guild.id) + ".json"):
+    attempts = await get_scoreboard("attempts", ctx.guild.id)
+    
+    if attempts == {}:
         await ctx.send("The attempts scoreboard is currently empty")
         return
-
-    with open("scoreboards/attempts/" + str(ctx.guild.id) + ".json", "r") as o:
-        attempts = json.loads(o.read())
-        o.close()
     
-    board = ''
-    
-    for i in sorted(attempts.items(), key=lambda x:x[1], reverse=True):
-        board += (g.names_list[i[0]] + " - " + str(i[1]) + '\n')
+    async with ctx.typing():
+        await ctx.guild.chunk(cache=True)
+        
+        board = ''
+        
+        for i in sorted(attempts.items(), key=lambda x:x[1], reverse=True):
+            user = ctx.guild.get_member(int(i[0]))
+            if user is None:
+                user = await foobot.fetch_user(int(i[0]))
+            board += (user.display_name + " - " + str(i[1]) + '\n')
     
     await ctx.send(board)
 
