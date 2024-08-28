@@ -1,11 +1,16 @@
 import discord
 import asyncio
 import os
+import configparser
 from discord.ext import commands
 from botcmds.privilege import admin_check
 import logging
 
 logging.basicConfig(level=logging.INFO)
+
+# Load configuration file (aleconfig.ini)
+config = configparser.ConfigParser()
+config.read('aleconfig.ini')
 
 #watch out for the order of this:
 cmd_names = ["privilege", "classic_commands", "management_commands", "cat", "comic_commands_thx_kittrz", "frisk", "mokou", "gilbert", "scoreboard", "gilblist", "uptime"];
@@ -24,7 +29,9 @@ class MyClient(commands.Bot):
 
 intents = discord.Intents.default()
 intents.message_content = True
-bot = MyClient(command_prefix='ale!', intents=intents)
+
+#Prefix taken from aleconfig.ini
+bot = MyClient(command_prefix=config["Main"]['prefix'], intents=intents)
 
 @bot.hybrid_command()
 async def reload(ctx):
@@ -58,9 +65,7 @@ async def on_ready():
 #funny status
     await bot.change_presence(status=discord.Status.online, activity=game)
 
-with open('token.txt', 'r') as f:
-    token = f.readline()
-    f.close()
+token = config['Main']['token']
 
 async def main():
     async with bot:

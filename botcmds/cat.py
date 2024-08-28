@@ -1,6 +1,7 @@
 from discord.ext import commands
 import catapi
 import random
+import configparser
 import os
 
 
@@ -14,14 +15,14 @@ async def cat(ctx):
         await ctx.send(cat[0].url)
 
 async def setup(bot):
-    if not os.path.exists("catapi.txt"):
-        print("cat api token not found, command disabled")
-        return
-    token = ""
-    with open('catapi.txt', 'r') as f:
-        token = f.readline()
-        f.close()
-    
+    config = configparser.ConfigParser()
+    config.read('aleconfig.ini')
+    token = config['Main']['catapi_token']
+    if token == None or token == '':
+            print("cat api token not found, command disabled")
+            return
+
+
     global apimeow
     apimeow = catapi.CatApi(api_key=token)
     bot.add_command(cat)
