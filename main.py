@@ -60,10 +60,17 @@ async def on_command_error(ctx, error):
 @bot.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
-#funny game
-    game = discord.Game("gaming edition")
 #funny status
-    await bot.change_presence(status=discord.Status.online, activity=game)
+    onlinestatus = discord.DiscordException
+    onlinestatusini = config["Main"]['online_status']
+    if onlinestatusini == 'online': onlinestatus = discord.Status.online
+    elif onlinestatusini == 'idle': onlinestatus = discord.Status.idle
+    elif onlinestatusini == 'dnd': onlinestatus = discord.Status.dnd
+    elif onlinestatusini == 'offline' or onlinestatusini == 'invisible': onlinestatus = discord.Status.invisible
+    else:print('Invalid online status, using default')
+    customstatus = discord.CustomActivity(name=config['Main']['custom_status'])
+    await bot.change_presence(status=onlinestatus, activity=customstatus)
+
 
 token = config['Main']['token']
 
