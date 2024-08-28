@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands
 import subprocess
 from botcmds.privilege import admin_check
+import pprint
+import os
 
 @commands.hybrid_command(description='Download a file from the internet')
 async def wget(ctx, link, filename=None):
@@ -47,7 +49,7 @@ async def servers(ctx):
         await ctx.send('You need privileges to use this command!')
 
 @commands.hybrid_command(descriptions='Get a list of files in the current directory')
-async def dir(ctx, dir=None):
+async def dirold(ctx, dir=None):
     if await admin_check(ctx.author.id):
         if dir is None:
             command = subprocess.Popen(['bash', '-c', 'ls -1'], stdout=subprocess.PIPE)
@@ -59,12 +61,22 @@ async def dir(ctx, dir=None):
     else:
         await ctx.send('You need privileges to use this command!')
 
+@commands.hybrid_command(descriptions='Get a list of files in the current directory')
+async def dir(ctx, dir=None):
+    if await admin_check(ctx.author.id):
+        directory = os.listdir(dir)
+        message = pprint.pformat(directory)
+        await ctx.send(str(message[:2000]))
+    else:
+        await ctx.send('You need privileges to use this command!')
+
 async def setup(bot):
     bot.add_command(wget)
     bot.add_command(send)
     bot.add_command(delete)
     bot.add_command(neofetch)
     bot.add_command(servers)
+    bot.add_command(dirold)
     bot.add_command(dir)
     global foobot
     foobot = bot
