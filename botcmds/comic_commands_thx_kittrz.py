@@ -32,22 +32,9 @@ async def heathcliff(ctx):
 
 @commands.hybrid_command(description='Sends a random Garfield Minus Garfield strip. Command functionality made by kittrz.')
 async def jon(ctx):
-    r = req.get("https://garfieldminusgarfield.net/page/0").text 
-    
-    first_comic_index = r.find("lastpage")
-    
-    # this is jank and I don't know if this will even work when the site is updated
-    for i in range(0, 20):
-        if r[first_comic_index-i] == '/':
-            for j in range(0, 10):
-                r[first_comic_index-i+j] 
-                if r[first_comic_index-i+j] == '\"':
-                     first_comic_index = r[first_comic_index-i+1:first_comic_index-i+j]
-                     break
-            break
-    
-    r = req.get("https://garfieldminusgarfield.net/page/" + str(random.randrange(0,int(first_comic_index)))).text
-#url_index = r.find("src=\"https://assets.amuniversal");
+    global jon_first_page
+
+    r = req.get("https://garfieldminusgarfield.net/page/" + str(random.randrange(0,int(jon_first_page)))).text
     url_index = r.find("<img src=\"https://64.media.tumblr.")
     url_index_2 = r.rfind("<img src=\"https://64.media.tumblr.")
     link1 = ""
@@ -76,4 +63,21 @@ async def jon(ctx):
 async def setup(bot):
     bot.add_command(garfield)
     bot.add_command(heathcliff)
+
+    # get first garfield minus garfield page
+    # could break if a new page gets added, but the bot gets reset much more often then any new comics are released so it shouldn't be a big deal
+    r = req.get("https://garfieldminusgarfield.net/page/0").text
+    
+    first_comic_index = r.find("lastpage")
+
+    global jon_first_page
+    for i in range(0, 20):
+        if r[first_comic_index-i] == '/':
+            for j in range(0, 10):
+                r[first_comic_index-i+j] 
+                if r[first_comic_index-i+j] == '\"':
+                     jon_first_page = r[first_comic_index-i+1:first_comic_index-i+j]
+                     break
+            break
+
     bot.add_command(jon)

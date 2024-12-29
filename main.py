@@ -61,14 +61,27 @@ async def on_command_error(ctx, error):
 async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
 #funny status
-    onlinestatus = discord.DiscordException
-    onlinestatusini = config["Main"]['online_status']
+
+    try:
+        onlinestatusini = config["Main"]['online_status']
+    except:
+        print('No online status set in config file. using default')
+        onlinestatusini = 'online'
+
     if onlinestatusini == 'online': onlinestatus = discord.Status.online
     elif onlinestatusini == 'idle': onlinestatus = discord.Status.idle
     elif onlinestatusini == 'dnd': onlinestatus = discord.Status.dnd
     elif onlinestatusini == 'offline' or onlinestatusini == 'invisible': onlinestatus = discord.Status.invisible
     else:print('Invalid online status, using default')
-    customstatus = discord.CustomActivity(name=config['Main']['custom_status'])
+
+
+    customstatus = discord.CustomActivity(name='gaming edition')
+    try:
+        customstatus = discord.CustomActivity(name=config['Main']['custom_status'])
+    except:
+        print('No custom status set in config file. using default')
+
+
     await bot.change_presence(status=onlinestatus, activity=customstatus)
 
 

@@ -17,10 +17,11 @@ async def cat(ctx):
 async def setup(bot):
     config = configparser.ConfigParser()
     config.read('aleconfig.ini')
-    token = config['Main']['catapi_token']
-    if token == None or token == '':
-            print("cat api token not found, command disabled")
-            return
+    try:
+        token = config['Main']['catapi_token']
+    except:
+        print("cat api token not found, command disabled")
+        return
 
 
     global apimeow
