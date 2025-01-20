@@ -1,0 +1,6 @@
+[Main]
+;catapi_token = ***uncomment and add token from https://thecatapi.com/ to enable functionality***
+custom_status = gaming edition
+online_status = online
+prefix = ale!
+token = ***DISCORD BOT TOKEN***
