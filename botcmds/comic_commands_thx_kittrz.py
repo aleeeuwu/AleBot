@@ -1,34 +1,51 @@
 from discord.ext import commands
+from datetime import datetime, timedelta
+import json
 import random
 import requests as req
 
-@commands.hybrid_command(description='Sends a random Garfield strip from GoComics. Command functionality made by kittrz.')
+@commands.hybrid_command(description='Sends a random Garfield strip from GoComics.')
 async def garfield(ctx):
-    r = req.get("https://www.gocomics.com/random/garfield").text
-    url_index = r.find("src=\"https://assets.amuniversal");
-    str = ""
-    # weird jank because I can't get the string array thing to print out right
-    for i in range(5, 68):
-        str += r[url_index+i]
-    #ale added this. dumb way to check if the site works but i wanted to do it
-    if 'https://assets.amuniversal.com/' not in str:
-        await ctx.send('Seems like the site is currently down. Please try again later.')
-        return
-    await ctx.send(str)
+    # start and end dates for the comic, currently assuming strips were released daily
+    start = datetime(1978, 6, 19)
+    end = datetime.today() # assumes new strips are still releasing
 
-@commands.hybrid_command(description='Sends a random Heathcliff strip from GoComics. Command functionality made by kittrz.')
+    # calculate number of days between start and end, generate a random number in that range, and use it to find a new date
+    delta = end - start
+    random_delta = random.randint(0, delta.days)
+    random_date = start + timedelta(days=random_delta)
+
+    # fetch the comic
+    url = "https://www.gocomics.com/api/service/v2/assets/recent/garfield?date=" + datetime.strftime(random_date, "%Y-%m-%d")
+    comic_data_raw = req.get(url).text
+    comic_data = json.loads(comic_data_raw)[0]
+
+    await ctx.send(comic_data.get("url"))
+
+@commands.hybrid_command(description='Sends a random Heathcliff strip from GoComics.')
 async def heathcliff(ctx):
-    r = req.get("https://www.gocomics.com/random/heathcliff").text
-    url_index = r.find("src=\"https://assets.amuniversal");
-    str = ""
-    # weird jank because I can't get the string array thing to print out right
-    for i in range(5, 68):
-        str += r[url_index+i]
-    #ale added this. dumb way to check if the site works but i wanted to do it
-    if 'https://assets.amuniversal.com/' not in str:
-        await ctx.send('Seems like the site is currently down. Please try again later.')
-        return
-    await ctx.send(str)
+    # start and end dates for the comic, currently assuming strips were released daily
+    start = datetime(2002, 1, 1)
+    end = datetime.today() # assumes new strips are still releasing
+
+    # calculate number of days between start and end, generate a random number in that range, and use it to find a new date
+    delta = end - start
+
+    # GoComics has some gaps in the daily comics for Heathcliff at the beginning, so this accounts for that
+    while True:
+        random_delta = random.randint(0, delta.days)
+
+        if not (4 <= random_delta <= 130 or random_delta == 137):
+            break
+
+    random_date = start + timedelta(days=random_delta)
+
+    # fetch the comic
+    url = "https://www.gocomics.com/api/service/v2/assets/recent/heathcliff?date=" + datetime.strftime(random_date, "%Y-%m-%d")
+    comic_data_raw = req.get(url).text
+    comic_data = json.loads(comic_data_raw)[0]
+
+    await ctx.send(comic_data.get("url"))
 
 @commands.hybrid_command(description='Sends a random Garfield Minus Garfield strip. Command functionality made by kittrz.')
 async def jon(ctx):
