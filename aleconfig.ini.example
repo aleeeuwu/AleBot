@@ -1,6 +1,7 @@
 [Main]
 ;catapi_token = ***uncomment and add token from https://thecatapi.com/ to enable functionality***
 custom_status = gaming edition
+;neofetch_cmd = neofetch --stdout
 online_status = online
 prefix = ale!
 token = ***DISCORD BOT TOKEN***

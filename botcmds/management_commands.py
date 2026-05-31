@@ -4,6 +4,7 @@ import subprocess
 from botcmds.privilege import admin_check
 import pprint
 import os
+import configparser
 
 @commands.hybrid_command(description='Download a file from the internet')
 async def wget(ctx, link, filename=None):
@@ -35,7 +36,7 @@ async def delete(ctx,arg):
 
 @commands.hybrid_command()
 async def neofetch(ctx):
-    text = subprocess.check_output(['bash', '-c', 'neofetch --stdout'])
+    text = subprocess.check_output(['bash', '-c', f'{neofetchbin}'])
     await ctx.send(text.decode())
 
 @commands.hybrid_command()
@@ -74,7 +75,16 @@ async def setup(bot):
     bot.add_command(wget)
     bot.add_command(send)
     bot.add_command(delete)
-    bot.add_command(neofetch)
+
+    config = configparser.ConfigParser()
+    config.read('aleconfig.ini')
+    try:
+        global neofetchbin
+        neofetchbin = config['Main']['neofetch_cmd']
+        bot.add_command(neofetch)
+    except:
+        print("neofetch command not provided, command disabled")
+
     bot.add_command(servers)
     bot.add_command(dirold)
     bot.add_command(dir)
