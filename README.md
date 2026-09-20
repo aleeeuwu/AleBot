@@ -34,6 +34,6 @@ Next, files the bot expects to exist (next to main.py):
 }
 ```
 5. `assets/REDDIT.png` - Just an image file uploaded to Discord when calling the "reddit" command.
-6. `assets/mokou/` - A folder with 700 images named `1.jpg` to `700.jpg`. The intended images for this folder can be downloaded from [a Tweet by the artist](https://twitter.com/jokanhiyou/status/1556186890428039168).
+6. `assets/mokou/` - A folder with images named `1.jpg`, `2.jpg`, `3.jpg`, etc., up to the number specified in the config file. The intended images for this folder are from the artist jokanhiyou and can be downloaded from [their Google Drive folder](https://drive.google.com/drive/folders/124ZPLUz6KB7Br-aoLrZKVwmIl8xXthMQ?usp=sharing).
 
 Some commands run under bash so on Windows you will need Windows Subsystem for Linux for them to work (the bot runs outside of the subsystem and will only call it when needed). With bash you should only need to install `neofetch` using a package manager.

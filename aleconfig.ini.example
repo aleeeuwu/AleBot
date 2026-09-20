@@ -1,6 +1,7 @@
 [Main]
 ;catapi_token = ***uncomment and add token from https://thecatapi.com/ to enable functionality***
 custom_status = gaming edition
+mokou_images = 1000
 ;neofetch_cmd = neofetch --stdout
 online_status = online
 prefix = ale!
