@@ -14,7 +14,7 @@ First, Python requirements (versions listed are what have been tested, newer ver
 
 1. Python 3.8 or higher
 2. discord.py 2.1.0
-3. `asyncio`, `catapi.py`, `requests`
+3. `asyncio`, `requests`
 
 Next, files the bot expects to exist (next to main.py):
 
