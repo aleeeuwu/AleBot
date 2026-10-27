@@ -19,8 +19,8 @@ async def privilege(ctx):
             await ctx.send('You are not a privileged user')
 
 @privilege.command()
-async def add(ctx, id):
-    #this doesn't work
+async def add(ctx, id=None):
+    #this works now
     if id == None:
         await ctx.send('Please specify the id of the user you want to make privileged')
         return
