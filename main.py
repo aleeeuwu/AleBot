@@ -50,9 +50,9 @@ async def owner(ctx):
 
 @bot.event
 async def on_command_error(ctx, error):
-    if isinstance(error, discord.ext.commands.errors.CommandNotFound):
+    if isinstance(error, commands.errors.CommandNotFound):
         await ctx.send("Unknown command. Do ale!help to see the command list")
-    if isinstance(error, discord.ext.commands.errors.CommandInvokeError):
+    if isinstance(error, commands.errors.CommandInvokeError):
         await ctx.send("Something went wrong. Check your console for details.")
     print(error)
 
@@ -72,7 +72,9 @@ async def on_ready():
     elif onlinestatusini == 'idle': onlinestatus = discord.Status.idle
     elif onlinestatusini == 'dnd': onlinestatus = discord.Status.dnd
     elif onlinestatusini == 'offline' or onlinestatusini == 'invisible': onlinestatus = discord.Status.invisible
-    else:print('Invalid online status, using default')
+    else:
+        onlinestatus = discord.Status.online
+        print('Invalid online status, using default')
 
 
     customstatus = discord.CustomActivity(name='gaming edition')
